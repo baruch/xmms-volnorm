@@ -205,7 +205,10 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 		sum[channel] = 0.0;
 	}
 
-	/* Calculate the square sums for all channels at once */
+	/* Calculate the square sums for all channels at once 
+	 * This will be do better memory access
+	 */
+
 	/* length is in bytes we use shorts */
 	channel = 0;
 	for (i = 0; i < length/2; ++i) {
@@ -230,9 +233,7 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 			level = level / (G_MAXSHORT * G_MAXSHORT);
 
 			SmoothAddSample(smooth[channel], level);
-/*			printf("Channel %d, Sum %f, Level %f, ", channel, sum[channel], level);*/
 		}
-	/*	printf("\n");*/
 	}
 }
 
@@ -248,11 +249,13 @@ static void adjust_gain(gpointer * d, gint length, double gain)
 	
 	/* length is in bytes, we use two bytes per sample. */
 	for (i = 0; i < length/2; ++i, ++data) {
-		gint32 sample1 = *data;
-		double sample = sample1 * gain;
-		gint16 sample2 = CLAMP(sample, G_MINSHORT, G_MAXSHORT);
-		*data = sample2;
+		/* Convert sample to double */
+		double sample = (double)*data;
 
-/*if (i == 5) printf("# %d, %f, %d\n", sample1, sample, sample2);*/
+		/* Multiply by gain */
+		sample *= gain;
+
+		/* Make sure it's within bounds and cast to gint16 */
+		*data = (gint16) CLAMP(sample, G_MINSHORT, G_MAXSHORT);
 	}
 }

@@ -1,3 +1,4 @@
+stamp-h*
 config.h
 Makefile.in
 Makefile

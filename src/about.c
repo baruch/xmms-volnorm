@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "about.h"
 #include "gtk/gtk.h"
 

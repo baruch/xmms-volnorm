@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "smooth.h"
 #include "glib.h"
 
