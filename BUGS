@@ -16,15 +16,6 @@ a faster rate. This is called Attack time or something like that.
 
 -----------------------------------------------------------------------------
 
-both xmms + plugin GTK configuration window freeze, when I try configure 
-plugin.
-I use xmms 1.2.2 (debian package), plugin version 0.3.4 and ESD daemon instead
-of direct access to /dev/dsp.
-
-BE: I tried this locally and I find no problem (2000-09-26)
-
------------------------------------------------------------------------------
-
 The testload program from the tests/ directory is being installed, this is 
 futile as it does nothing but ensure that the plugin is loadable.
 
