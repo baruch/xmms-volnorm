@@ -35,9 +35,8 @@ once per second or three, and raise in small increments...
 Add tests to the test driver, currently it only tests that the plugin is 
 loadable, if it's not loadable linking the test driver will fail.
 
-Complete, test and use the .spec file to create RPM's, solicit the debian
-equivalent from debian users. And have someone to create the .debs when
-doing file releases.
+Solicit the debian equivalent of RPM .specs from debian users. And have 
+someone to create the .debs when doing file releases.
 
 As a part of the normalization it might be applicable to use Fade-in/Fade-out
 to avoid startling noise at the start if a song starts loud, or a hard cut
@@ -46,7 +45,7 @@ to change from a zero multiplier (complete silence) to no change, it is also
 possible to add a start multiplier so that it will not need to start from 0.
 
 Possibly add a preprocessing stage that will reduce the dynamic range, this
-was asked in the context of classical music where the dynamic range is wide
+was asked for in the context of classical music where the dynamic range is wide
 and causes also wide changes in the perceived volume inside the song. This is
 not handled currently since the plugin adjusts the volume based on the maximum
 volume of the song so as to preserve the dynamic range inside the song. 

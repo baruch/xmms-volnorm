@@ -48,6 +48,7 @@ play with the volume knob whenever a song changes.
 #### Install
 %install
 %clean_build_root
+%{!?makeinstall: %define makeinstall make DESTDIR="$RPM_BUILD_ROOT" install}
 %makeinstall
 
 #### Clean

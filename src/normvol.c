@@ -43,7 +43,7 @@ EffectPlugin normvol_ep =
 {
 	NULL,
 	NULL,
-	"Normalize Volume " VERSION,
+	"Normalize Volume BUILD 1 " VERSION,
 	normvol_init,
 	normvol_cleanup,
 	normvol_about,	   /* about */
@@ -72,16 +72,21 @@ static gint song_changed(void) {
 	/* These vars are used to detect a song change */
 	static gint last_song = -1;
 	static gint last_length = -1;
+	static gchar *last_filename = NULL;
 
 	gint song = -1;
 	gint length = -1;
+	gchar *filename = NULL;
 
 	/* Get the current song played and its total playing time */
 	song = xmms_remote_get_playlist_pos(0);
 	length = xmms_remote_get_playlist_time(0, song);
+	filename = xmms_remote_get_playlist_file(0, song);
 
 	/* If something is different, assume its a different song */
-	if (song != last_song || length != last_length) {
+	/* if (song != last_song || length != last_length) { */
+	if (length != last_length && 
+			filename && last_filename && strcmp(filename, last_filename)!=0) {
 		last_song = song;
 		last_length = length;
 

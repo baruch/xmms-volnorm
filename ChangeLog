@@ -1,3 +1,14 @@
+2001-02-04  Baruch Even  <baruch.even@writeme.com>
+
+	* various files: Removed gettext support from compilation
+	due to some linkage problem, it is not used anyhow.
+
+	* src/Makefile.am: Fixed install problem where the files where installed
+	to the wrong directory.
+
+	* src/normvol.c: Made the song change detection avoid misdetection when
+	the song is just moved around in the playlist.
+
 2001-01-03  Sourav K. Mandal  <Sourav.Mandal@ikaran.com>
 
 	* volnorm.spec.in: Fixed the spec file.

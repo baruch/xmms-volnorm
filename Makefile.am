@@ -1,4 +1,4 @@
-SUBDIRS=src tests intl po
+SUBDIRS=src tests
 
 DISTCLEANFILES= *.orig *.rej *~ *.bak core
 
