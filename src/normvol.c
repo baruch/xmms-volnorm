@@ -43,7 +43,7 @@ EffectPlugin normvol_ep =
 {
 	NULL,
 	NULL,
-	"Normalize Volume BUILD 1 " VERSION,
+	"Normalize Volume " VERSION,
 	normvol_init,
 	normvol_cleanup,
 	normvol_about,	   /* about */
