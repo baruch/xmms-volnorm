@@ -1,7 +1,7 @@
 Begin4
 Title: Volume Normalizing plugin for XMMS
 Version: @VERSION@
-Entered-date: 2000-09-18 
+Entered-date: 2000-10-07
 Description: volnorm is an XMMS plugin that forces all played music to have
 	the same base volume. volnorm will adjust the volume of the music played 
 	to a level that you set so that will not need to adjust the volume knob 
@@ -10,7 +10,7 @@ Keywords: Volume, Normalizing, Normalize, XMMS, plugin, volnorm, MP3
 Author: baruch@users.sourceforge.net (Baruch Even)
 Maintained-by: baruch@users.sourceforge.net (Baruch Even)
 Primary-site: http://volnorm.sourceforge.net/
-	122KB @PACKAGE@-@VERSION@.tar.gz
+	190KB @PACKAGE@-@VERSION@.tar.gz
 Platforms: Linux is known to work, any other Unix system should work.
 Copying-policy: GNU General Public License (GPL) version 2
 End
