@@ -10,6 +10,9 @@ The user should set a maximum multiplier.
 
 2. Stuff that needs doing:
 
+Create a monitor that will display the current power, gain and such, possibly
+also show song change time and ability to dump the data to a file.
+
 Make sure that the sample size is small enough, not larger than 1/100 of a 
 second worth of data.
 
