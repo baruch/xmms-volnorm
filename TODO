@@ -1,6 +1,6 @@
 1. Stuff that was implemented and needs testing:
 
-NA
+None
 
 2. Stuff that needs doing:
 
@@ -44,3 +44,13 @@ to avoid startling noise at the start if a song starts loud, or a hard cut
 if a song ends loud. This can be expressed in duration (seconds) that it takes
 to change from a zero multiplier (complete silence) to no change, it is also
 possible to add a start multiplier so that it will not need to start from 0.
+
+Possibly add a preprocessing stage that will reduce the dynamic range, this
+was asked in the context of classical music where the dynamic range is wide
+and causes also wide changes in the perceived volume inside the song. This is
+not handled currently since the plugin adjusts the volume based on the maximum
+volume of the song so as to preserve the dynamic range inside the song. 
+The way to do it is by using a compressor effect as a preprocessing stage.
+It should allow the configuration of the starting power and the rate, exact
+definition of how to write a compressor effect should be found.
+
