@@ -11,7 +11,6 @@ Author: baruch@users.sourceforge.net (Baruch Even)
 Maintained-by: baruch@users.sourceforge.net (Baruch Even)
 Primary-site: http://volnorm.sourceforge.net/
 	122KB @PACKAGE@-@VERSION@.tar.gz
-Platforms: Linux is known to work, any other POSIX system should work but
-	it was not tested on anything else.
+Platforms: Linux is known to work, any other Unix system should work.
 Copying-policy: GNU General Public License (GPL) version 2
 End
