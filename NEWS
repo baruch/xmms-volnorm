@@ -1,9 +1,11 @@
-2000-09-18
+2000-10-07
 
-	Working on version 0.3.5
+	Releasing version 0.3.5 - a stable version.
 
-	This version adds a test suite of one test for plugin loadability, and
-	various text files.
+	In this version I eliminated all the known bugs and problems, the sound
+	quality has improved and various artifacts have been squashed.
+
+	This version adds a test suite of one test for plugin loadability.
 
 2000-09-16
 
