@@ -93,6 +93,9 @@
 #undef HAVE_LC_MESSAGES
 #undef HAVE_STPCPY
 
+#undef HAVE_GTKEXTRA_GTKPLOT_H
+#undef USE_MONITOR
+
 /* Define if you have the __argz_count function.  */
 #undef HAVE___ARGZ_COUNT
 
@@ -137,6 +140,9 @@
 
 /* Define if you have the <argz.h> header file.  */
 #undef HAVE_ARGZ_H
+
+/* Define if you have the <gtkextra/gtkplot.h> header file.  */
+#undef HAVE_GTKEXTRA_GTKPLOT_H
 
 /* Define if you have the <limits.h> header file.  */
 #undef HAVE_LIMITS_H

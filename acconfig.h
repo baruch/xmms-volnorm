@@ -277,6 +277,9 @@
 #undef HAVE_LC_MESSAGES
 #undef HAVE_STPCPY
 
+#undef HAVE_GTKEXTRA_GTKPLOT_H
+#undef USE_MONITOR
+
 
 /* Leave that blank line there!!  Autoheader needs it.
    If you're adding to this file, keep in mind:
