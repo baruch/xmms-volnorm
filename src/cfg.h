@@ -13,6 +13,11 @@ extern void read_config(void);
  */
 extern void write_config(void);
 
+/**
+ * Print the config variables to the standard output.
+ */
+extern void print_config(char const *msg);
+
 /** The level to normalize for */
 extern double normalize_level;
 

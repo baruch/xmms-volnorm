@@ -1,3 +1,11 @@
+2000-09-16
+
+	Releasing version 0.3.4 - still a development version.
+
+	After a set of faulty releases this finally should be able to compile, load
+	and possibly even work. The new features for artifact reduction are still
+	untested and are unknown if they work.
+
 2000-09-14
 
 	Releasing untested version 0.3 - consider this a development version.

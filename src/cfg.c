@@ -5,6 +5,8 @@
 #include "cfg.h"
 #include "xmms/configfile.h"
 
+#include "stdio.h"
+
 #define DEFAULT_LEVEL 0.25
 #define DEFAULT_SILENCE 0.01
 #define DEFAULT_MAX_MULT 15.0
@@ -22,10 +24,10 @@ void read_config(void)
 		normalize_level = DEFAULT_LEVEL;
 	
 	if (!xmms_cfg_read_double(config, "normvol", "silence", &silence_level))
-		normalize_level = DEFAULT_SILENCE;
+		silence_level = DEFAULT_SILENCE;
 	
 	if (!xmms_cfg_read_double(config, "normvol", "maxmult", &max_mult))
-		normalize_level = DEFAULT_MAX_MULT;
+		max_mult = DEFAULT_MAX_MULT;
 
 	xmms_cfg_free(config);
 }
@@ -40,4 +42,11 @@ void write_config(void)
 
 	xmms_cfg_write_default_file(config);
 	xmms_cfg_free(config);
+}
+
+void print_config(char const * msg)
+{
+	printf("%s\n", msg);
+	printf("Normalize level: %0.2f\nSilence level: %0.2f\nMax Mult: %0.2f\n\n",
+			normalize_level, silence_level, max_mult);
 }

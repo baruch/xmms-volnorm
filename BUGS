@@ -3,6 +3,3 @@ A report from Vincenzo Gervasi <gervasi@margot.di.unipi.it>:
 often produces several sudden increases of the volume level in a row,
 with... ehm... interesting effects on the nerves of my office mates. You
 should probably test it on a machine with sound hardware."
-
-At initial launch the normalize level is set to 1.0 instead of 0.25
-1.0 is way too high and will surely cause clipping.

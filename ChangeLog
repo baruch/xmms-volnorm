@@ -1,3 +1,12 @@
+2000-09-16  Baruch Even  <baruch.even@writeme.com>
+
+	* src/cfg.h:
+	* src/cfg.c: Added a print_config function to help debugging problems with
+	configuration variables.
+
+	* src/cfg.c: Fixed a bug where the normalizing level was set too high in
+	the start.
+
 2000-09-15  Baruch Even  <baruch.even@writeme.com>
 
 	* src/cfg.h: Changed the ifdef protection, it clashed with config.h

@@ -112,7 +112,7 @@ static void normvol_configure(void)
 {
 	GtkWidget * dialog = NULL;
 	GtkWidget * hscale = NULL;
-	
+
 	/* Create the dialog */
 	dialog = create_dialog_configuration();
 	g_assert(dialog);
