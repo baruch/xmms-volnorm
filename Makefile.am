@@ -5,9 +5,7 @@ DISTCLEANFILES= *.orig *.rej *~ *.bak core
 EXTRA_DIST = BUGS RELEASE \
 	@PACKAGE@.spec.in \
 	@PACKAGE@.lsm.in \
-	config/* \
-	glade/* \
-	glade/src/*
+	config/*
 
 dist-hook: @PACKAGE@.spec.in @PACKAGE@.lsm.in
 	cp @PACKAGE@.spec $(distdir)
