@@ -13,6 +13,7 @@ const struct _msg_ent _msg_tbl[] = {
   {"OK", 4},
   {"Cancel", 5},
   {"Apply", 6},
+  {"Volume Normalizing plugin Monitor", 7},
 };
 
-int _msg_tbl_length = 6;
+int _msg_tbl_length = 7;
