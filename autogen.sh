@@ -25,9 +25,9 @@ echo -n "Generate acinclude.m4... "
 rm -f acinclude.m4
 touch acinclude.m4
 #for fil in config/gettext.m4 config/lcmessage.m4 config/progtest.m4 ; do
-for fil in config/progtest.m4 ; do
-    cat $fil >> acinclude.m4
-done
+#for fil in config/progtest.m4 ; do
+#    cat $fil >> acinclude.m4
+#done
 echo "done."
 
 # Generate the Makefiles and configure files

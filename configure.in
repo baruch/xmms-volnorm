@@ -1,21 +1,15 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(src/normvol.c)
+AC_PREREQ(2.50) dnl We want to use autoconf 2.50
 AM_CONFIG_HEADER(src/config.h)
-AM_INIT_AUTOMAKE(volnorm,0.4.1)
+AM_INIT_AUTOMAKE(volnorm,0.8)
+
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
-
-AC_ARG_ENABLE( one-plugin-dir,
-[  --enable-one-plugin-dir  use a single plugin dir [default=no]],,
-                enable_one_plugin_dir="no")
 
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL
-
-dnl Checks for typedefs, structures, and compiler characteristics.
-AC_ISC_POSIX
-AC_C_INLINE
 
 
 AC_PATH_PROG(XMMS_PATH,xmms,no)
@@ -25,23 +19,19 @@ if test "x$XMMS_PATH" = "xno"; then
 	exit 1
 fi
 
+AC_ARG_ENABLE( one-plugin-dir,
+[  --enable-one-plugin-dir  use a single plugin dir [default=no]],,
+                enable_one_plugin_dir="no")
+
 AC_ARG_WITH(plugindir, 
 [  --with-plugindir=DIR    use this for plugin dir ],
 				plugindir=$withval,
                 plugindir=`xmms-config --plugin-dir`)
 
 AC_MSG_CHECKING(XMMS plugin dir)
-#plugindir=`xmms-config --plugin-dir`
+dnl plugindir=`xmms-config --plugin-dir`
 AC_SUBST(plugindir)
 AC_MSG_RESULT($plugindir)
-
-dnl if test "x$enable_one_plugin_dir" = "xyes"; then
-dnl	VISUALIZATION_PLUGIN_DIR=Plugins
-dnl else
-dnl	VISUALIZATION_PLUGIN_DIR=Effect
-dnl fi
-dnl 
-dnl AC_SUBST(VISUALIZATION_PLUGIN_DIR)
 
 if test ! -d "$libdir"; then
   if test "x$enable_one_plugin_dir" = "xyes"; then
@@ -63,10 +53,6 @@ dnl Checks for header files.
 
 AC_CHECK_HEADERS(gtkextra/gtkplot.h, AC_DEFINE(USE_MONITOR))
 
-dnl Checks for library functions.
-AC_HEADER_STDC
-dnl AC_CHECK_FUNCS(strerror)
-
 dnl if test $ac_cv_header_stdc = yes; then
 dnl	AC_DEFINE(__STDC__)
 dnl fi
@@ -79,13 +65,6 @@ AC_MSG_RESULT($ARCH_TYPE)
 
 AM_CONDITIONAL(ARCH_X86,test "$ARCH_TYPE" = "i386" || test "$ARCH_TYPE" = "i486" || test "$ARCH_TYPE" = "i586" || test "$ARCH_TYPE" = "i686" || test "$ARCH_TYPE" = "i86pc")
 
-dnl Internationalization with GetText
-dnl ALL_LINGUAS=""
-dnl AM_GNU_GETTEXT
-
-dnl For i18n you need to add the two files.
-dnl intl/Makefile
-dnl po/Makefile.in
 AC_OUTPUT(
 Makefile
 src/Makefile
