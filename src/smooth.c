@@ -2,6 +2,7 @@
 
 #include "smooth.h"
 #include "glib.h"
+#include "cfg.h"
 
 struct smooth_struct {
 	double * data;
@@ -77,7 +78,8 @@ double SmoothGetMax(smooth_t * sm)
 		 * dont save the max value. 
 		 */
 		if (sm->used < sm->size)
-			return smoothed;
+			/* Average (weighted appropriately) the smoothed with normalize level for the unknown */
+			return (smoothed*sm->used + normalize_level*(sm->size - sm->used)) / sm->size;
 
 		if (sm->max < smoothed)
 			sm->max = smoothed;
