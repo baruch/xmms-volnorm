@@ -39,6 +39,17 @@ void xmms_cfg_write_double(ConfigFile * cfg, gchar * section, gchar * key, gdoub
 	cfg = NULL; section = NULL; key = NULL; value = 0.0;
 }
 
+gboolean xmms_cfg_read_boolean(ConfigFile * cfg, gchar * section, gchar * key, gboolean * value)
+{
+	cfg = NULL; section = NULL; key = NULL; value = NULL;
+	return FALSE;
+}
+
+void xmms_cfg_write_boolean(ConfigFile * cfg, gchar * section, gchar * key, gboolean value)
+{
+	cfg = NULL; section = NULL; key = NULL; value = 0;
+}
+
 gchar *xmms_remote_get_playlist_file(gint session, gint pos)
 {
 	session = pos = 0;

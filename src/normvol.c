@@ -211,6 +211,10 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 
 	gint16 * data = (gint16 *) *d;
 
+#ifdef DEBUG
+	static int counter = 0;
+#endif
+
 	/* Zero the channel sum values */
 	for (channel = 0; channel < nch; ++channel) {
 		sum[channel] = 0.0;
@@ -220,13 +224,27 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 	 * This will be do better memory access
 	 */
 
+#ifdef DEBUG
+	if ((double)*data > cutoff || counter == 250)  {
+	printf("do_compress = %d, cutoff = %g, degree = %g, sample = %d\n",
+			do_compress, cutoff, degree, *data);
+		counter = 0;
+	}
+	++counter;
+#endif
+	
 	/* length is in bytes we use shorts */
 	for (i = 0, channel = 0; i < length/2; ++i, ++data) {
 		double sample = *data;
+		double temp = 0.0;
+
+		if (do_compress)
+			if (sample > cutoff)
+				sample = cutoff + (sample-cutoff)/degree;
 	
 		/* Calculate sample^2 and 
 		   Adjust the level to be between 0.0 -- 1.0 */
-		double temp = sample*sample;
+		temp = sample*sample;
 			
 		sum[channel] += temp;
 		
@@ -265,6 +283,11 @@ static void adjust_gain(gpointer * d, gint length, double gain)
 	for (i = 0; i < length/2; ++i, ++data) {
 		/* Convert sample to double */
 		double sample = (double)*data;
+		
+		if (do_compress)
+			if (sample > cutoff)
+				sample = cutoff + (sample-cutoff)/degree;
+	
 
 		/* Multiply by gain */
 		sample *= gain;

@@ -33,10 +33,12 @@ create_volnorm (void)
   GtkWidget *hscale_max_mult;
   GtkWidget *page_level;
   GtkWidget *vbox2;
-  GtkWidget *label2;
-  GtkWidget *label3;
-  GtkWidget *label4;
-  GtkWidget *page_effects;
+  GtkWidget *check_compress;
+  GtkWidget *label9;
+  GtkWidget *hscale_cutoff;
+  GtkWidget *label10;
+  GtkWidget *hscale_degree;
+  GtkWidget *page_compress;
   GtkWidget *vbox3;
   GtkWidget *checkbutton_monitor;
   GtkWidget *label5;
@@ -50,9 +52,9 @@ create_volnorm (void)
   volnorm = gtk_dialog_new ();
   gtk_widget_set_name (volnorm, "volnorm");
   gtk_object_set_data (GTK_OBJECT (volnorm), "volnorm", volnorm);
-  gtk_window_set_title (GTK_WINDOW (volnorm), _("Volume Normalizing plugin Config"));
+  gtk_window_set_title (GTK_WINDOW (volnorm), _("volnorm config"));
   gtk_window_set_policy (GTK_WINDOW (volnorm), TRUE, TRUE, TRUE);
-  gtk_window_set_wmclass (GTK_WINDOW (volnorm), "VOLNORM", "VOLNORM");
+  gtk_window_set_wmclass (GTK_WINDOW (volnorm), "volnorm", "volnorm-config");
 
   dialog_vbox1 = GTK_DIALOG (volnorm)->vbox;
   gtk_widget_set_name (dialog_vbox1, "dialog_vbox1");
@@ -137,7 +139,7 @@ create_volnorm (void)
   gtk_widget_show (page_level);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 0), page_level);
 
-  vbox2 = gtk_vbox_new (FALSE, 0);
+  vbox2 = gtk_vbox_new (FALSE, 3);
   gtk_widget_set_name (vbox2, "vbox2");
   gtk_widget_ref (vbox2);
   gtk_object_set_data_full (GTK_OBJECT (volnorm), "vbox2", vbox2,
@@ -146,37 +148,54 @@ create_volnorm (void)
   gtk_container_add (GTK_CONTAINER (notebook1), vbox2);
   gtk_container_set_border_width (GTK_CONTAINER (vbox2), 6);
 
-  label2 = gtk_label_new (_("This"));
-  gtk_widget_set_name (label2, "label2");
-  gtk_widget_ref (label2);
-  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label2", label2,
+  check_compress = gtk_check_button_new_with_label (_("Apply Compress"));
+  gtk_widget_set_name (check_compress, "check_compress");
+  gtk_widget_ref (check_compress);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "check_compress", check_compress,
                             (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (label2);
-  gtk_box_pack_start (GTK_BOX (vbox2), label2, FALSE, FALSE, 0);
+  gtk_widget_show (check_compress);
+  gtk_box_pack_start (GTK_BOX (vbox2), check_compress, FALSE, FALSE, 0);
 
-  label3 = gtk_label_new (_("Currently"));
-  gtk_widget_set_name (label3, "label3");
-  gtk_widget_ref (label3);
-  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label3", label3,
+  label9 = gtk_label_new (_("Cutoff point"));
+  gtk_widget_set_name (label9, "label9");
+  gtk_widget_ref (label9);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label9", label9,
                             (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (label3);
-  gtk_box_pack_start (GTK_BOX (vbox2), label3, FALSE, FALSE, 0);
+  gtk_widget_show (label9);
+  gtk_box_pack_start (GTK_BOX (vbox2), label9, FALSE, FALSE, 0);
 
-  label4 = gtk_label_new (_("Holds nothing"));
-  gtk_widget_set_name (label4, "label4");
-  gtk_widget_ref (label4);
-  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label4", label4,
+  hscale_cutoff = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (14000, 0, 16000, 50, 1000, 0)));
+  gtk_widget_set_name (hscale_cutoff, "hscale_cutoff");
+  gtk_widget_ref (hscale_cutoff);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "hscale_cutoff", hscale_cutoff,
                             (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (label4);
-  gtk_box_pack_start (GTK_BOX (vbox2), label4, FALSE, FALSE, 0);
+  gtk_widget_show (hscale_cutoff);
+  gtk_box_pack_start (GTK_BOX (vbox2), hscale_cutoff, FALSE, FALSE, 0);
 
-  page_effects = gtk_label_new (_("Effects"));
-  gtk_widget_set_name (page_effects, "page_effects");
-  gtk_widget_ref (page_effects);
-  gtk_object_set_data_full (GTK_OBJECT (volnorm), "page_effects", page_effects,
+  label10 = gtk_label_new (_("Degree"));
+  gtk_widget_set_name (label10, "label10");
+  gtk_widget_ref (label10);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label10", label10,
                             (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (page_effects);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 1), page_effects);
+  gtk_widget_show (label10);
+  gtk_box_pack_start (GTK_BOX (vbox2), label10, FALSE, FALSE, 0);
+
+  hscale_degree = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (2, 1, 10, 0.1, 1, 0)));
+  gtk_widget_set_name (hscale_degree, "hscale_degree");
+  gtk_widget_ref (hscale_degree);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "hscale_degree", hscale_degree,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (hscale_degree);
+  gtk_box_pack_start (GTK_BOX (vbox2), hscale_degree, FALSE, TRUE, 0);
+  gtk_range_set_update_policy (GTK_RANGE (hscale_degree), GTK_UPDATE_DISCONTINUOUS);
+
+  page_compress = gtk_label_new (_("Compress"));
+  gtk_widget_set_name (page_compress, "page_compress");
+  gtk_widget_ref (page_compress);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "page_compress", page_compress,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (page_compress);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 1), page_compress);
 
   vbox3 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox3, "vbox3");
@@ -187,7 +206,7 @@ create_volnorm (void)
   gtk_container_add (GTK_CONTAINER (notebook1), vbox3);
   gtk_container_set_border_width (GTK_CONTAINER (vbox3), 6);
 
-  checkbutton_monitor = gtk_check_button_new_with_label (_("Use monitor"));
+  checkbutton_monitor = gtk_check_button_new_with_label (_("Use monitor\n(no effect for now)"));
   gtk_widget_set_name (checkbutton_monitor, "checkbutton_monitor");
   gtk_widget_ref (checkbutton_monitor);
   gtk_object_set_data_full (GTK_OBJECT (volnorm), "checkbutton_monitor", checkbutton_monitor,
@@ -216,7 +235,6 @@ create_volnorm (void)
   gtk_widget_ref (page_monitor);
   gtk_object_set_data_full (GTK_OBJECT (volnorm), "page_monitor", page_monitor,
                             (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (page_monitor);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 2), page_monitor);
 
   dialog_action_area1 = GTK_DIALOG (volnorm)->action_area;

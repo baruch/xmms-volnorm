@@ -1,3 +1,7 @@
+2001-08-05  Baruch Even  <baruch.even@writeme.com>
+
+	* various files: Added compression support.
+
 2001-02-14  Baruch Even  <baruch.even@writeme.com>
 
 	* src/normvol.c: Changed the song change detection, it leaked memory.

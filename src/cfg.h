@@ -3,6 +3,8 @@
 #ifndef CFG_H
 #define CFG_H
 
+#include <glib.h>
+
 /**
  * Read the config data into the global variables.
  */
@@ -26,5 +28,9 @@ extern double silence_level;
 
 /** Maximum multiplier to use. */
 extern double max_mult;
+
+extern gboolean do_compress;
+extern double cutoff;
+extern double degree;
 
 #endif

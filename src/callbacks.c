@@ -15,6 +15,24 @@
 static double temp_normalize_level = -1.0;
 static double temp_silence_level = -1.0;
 static double temp_max_mult = -1.0;
+static gboolean temp_do_compress = 0;
+static double temp_cutoff = -1.0;
+static double temp_degree = -1.0;
+
+static void
+volnorm_prefs_check_button_toggled(GtkToggleButton * cb, gpointer user_data)
+{
+	gboolean value = GTK_TOGGLE_BUTTON(cb)->active;
+
+	switch (GPOINTER_TO_INT(user_data)) {
+	case 6:
+		temp_do_compress = value;
+		break;
+	
+	default:
+		printf("ERROR in preferences dialog callback!\n");
+	}
+}
 
 static void
 volnorm_prefs_value_changed(GtkAdjustment * adj, gpointer user_data)
@@ -33,7 +51,15 @@ volnorm_prefs_value_changed(GtkAdjustment * adj, gpointer user_data)
 		case 3:
 			temp_max_mult = value;
 			break;
-		
+	
+		case 4:
+			temp_cutoff = value;
+			break;
+
+		case 5:
+			temp_degree = value;
+			break;
+			
 		default:
 			printf("ERROR in preferences dialog callback!\n");
 	}
@@ -44,6 +70,10 @@ volnorm_prefs_value_changed(GtkAdjustment * adj, gpointer user_data)
 		temp_silence_level = silence_level;
 	if (temp_max_mult < 0.0)
 		temp_max_mult = max_mult;
+	if (temp_degree < 0.0)
+		temp_degree = degree;
+	if (temp_cutoff < 0.0)
+		temp_cutoff = cutoff;
 }
 
 static void 
@@ -52,6 +82,9 @@ volnorm_apply_changes(void)
 	normalize_level = temp_normalize_level;
 	silence_level = temp_silence_level;
 	max_mult = temp_max_mult;
+	degree = temp_degree;
+	cutoff = temp_cutoff;
+	do_compress = temp_do_compress;
 	
 	write_config();
 }
@@ -115,6 +148,31 @@ volnorm_set_adjustment				   (GtkWidget * widget,
 	}
 }
 
+static void
+volnorm_set_checkbox				   (GtkWidget * widget,
+										char * cb_name,
+										gboolean cb_value,
+										gint   cb_id)
+{
+	GtkWidget * cb = NULL;
+		
+	cb = lookup_widget(widget, cb_name);
+	g_return_if_fail(cb != NULL);
+		
+	{
+		/* Get the adjustment out of the hscale, and set the value */
+		GtkToggleButton * check = GTK_TOGGLE_BUTTON(cb);
+
+		/* Connect the signal */
+		gtk_signal_connect(GTK_OBJECT(check), "toggled",
+				GTK_SIGNAL_FUNC(volnorm_prefs_check_button_toggled),
+				GINT_TO_POINTER(cb_id));
+		
+		/* Change the value */
+		gtk_toggle_button_set_active(check, cb_value);
+	}
+}
+
 void
 volnorm_dialog_prefs_update 		   (GtkWidget		*widget)
 {
@@ -124,4 +182,12 @@ volnorm_dialog_prefs_update 		   (GtkWidget		*widget)
 			silence_level, 2);
 	volnorm_set_adjustment(widget, "hscale_max_mult",
 			max_mult, 3);
+	
+	volnorm_set_adjustment(widget, "hscale_cutoff",
+			cutoff, 4);
+	volnorm_set_adjustment(widget, "hscale_degree",
+			degree, 5);
+	
+	volnorm_set_checkbox(widget, "check_compress",
+			do_compress, 6);
 }

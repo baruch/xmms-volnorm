@@ -34,13 +34,3 @@ once per second or three, and raise in small increments...
 
 Add tests to the test driver, currently it only tests that the plugin is 
 loadable, if it's not loadable linking the test driver will fail.
-
-Possibly add a preprocessing stage that will reduce the dynamic range, this
-was asked for in the context of classical music where the dynamic range is wide
-and causes also wide changes in the perceived volume inside the song. This is
-not handled currently since the plugin adjusts the volume based on the maximum
-volume of the song so as to preserve the dynamic range inside the song. 
-The way to do it is by using a compressor effect as a preprocessing stage.
-It should allow the configuration of the starting power and the rate, exact
-definition of how to write a compressor effect should be found.
-

@@ -1,3 +1,13 @@
+2001-xx-xx
+
+	Releasing version 0.9 - development version.
+
+	Added compression support, sound compression in the sense that you can
+	define a threshold and a divider to reduce the dynamic range of the sound.
+	It should help when listening to classical music with large variations
+	in it's perceived volume, it is supposed to allow better munging of the
+	volume.
+
 2001-02-04
 
 	Releasing version 0.4 - a stable version.
