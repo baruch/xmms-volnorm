@@ -6,3 +6,5 @@ config.cache
 libtool
 config.status
 Makefile
+volnorm.lsm
+volnorm.spec

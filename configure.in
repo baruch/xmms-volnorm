@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(src/normvol.c)
 AM_CONFIG_HEADER(src/config.h)
-AM_INIT_AUTOMAKE(normalize-volume,0.3.4)
+AM_INIT_AUTOMAKE(volnorm,0.3.5)
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
@@ -12,6 +12,12 @@ AC_ARG_ENABLE( one-plugin-dir,
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_ISC_POSIX
+AC_C_INLINE
+
+
 AC_PATH_PROG(XMMS_PATH,xmms,no)
 
 if test "x$XMMS_PATH" = "xno"; then
@@ -19,14 +25,24 @@ if test "x$XMMS_PATH" = "xno"; then
 	exit 1
 fi
 
+AC_MSG_CHECKING(XMMS plugin dir)
+plugindir=`xmms-config --plugin-dir`
+AC_SUBST(plugindir)
+AC_MSG_RESULT($plugindir)
+
+if test "x$enable_one_plugin_dir" = "xyes"; then
+	VISUALIZATION_PLUGIN_DIR=Plugins
+else
+	VISUALIZATION_PLUGIN_DIR=Effect
+fi
+
+AC_SUBST(VISUALIZATION_PLUGIN_DIR)
+
 dnl Checks for libraries.
 AM_PATH_GLIB(1.2.2,,AC_MSG_ERROR([*** GLIB >= 1.2.2 not installed - please install first ***]))
 AM_PATH_GTK(1.2.2,,AC_MSG_ERROR([*** GTK+ >= 1.2.2 not installed - please install first ***]),gthread)
 
 dnl Checks for header files.
-
-dnl Checks for typedefs, structures, and compiler characteristics.
-AC_C_INLINE
 
 dnl Checks for library functions.
 AC_HEADER_STDC
@@ -44,21 +60,17 @@ AC_MSG_RESULT($ARCH_TYPE)
 
 AM_CONDITIONAL(ARCH_X86,test "$ARCH_TYPE" = "i386" || test "$ARCH_TYPE" = "i486" || test "$ARCH_TYPE" = "i586" || test "$ARCH_TYPE" = "i686" || test "$ARCH_TYPE" = "i86pc")
 
-AC_MSG_CHECKING(XMMS plugin dir)
-plugindir=`xmms-config --plugin-dir`
-AC_SUBST(plugindir)
-AC_MSG_RESULT($plugindir)
-
-if test "x$enable_one_plugin_dir" = "xyes"; then
-	VISUALIZATION_PLUGIN_DIR=Plugins
-else
-	VISUALIZATION_PLUGIN_DIR=Effect
-fi
-
-AC_SUBST(VISUALIZATION_PLUGIN_DIR)
+dnl Internationalization with GetText
+ALL_LINGUAS=""
+AM_GNU_GETTEXT
 
 AC_OUTPUT(
 Makefile
 src/Makefile
+tests/Makefile
+intl/Makefile
+po/Makefile.in
+volnorm.spec
+volnorm.lsm
 )
 

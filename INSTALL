@@ -1,3 +1,13 @@
+Simple instructions
+===================
+
+Run the following commands:
+
+./configure
+make
+su -c "make install"
+
+
 Basic Installation
 ==================
 

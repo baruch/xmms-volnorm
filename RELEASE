@@ -1,0 +1,30 @@
+This is to document the stages to be done in a release.
+
+1. Verify compilability on local machine, with:
+	make clean all
+
+2. Verify loading as an XMMS plugin with:
+	make check
+
+3. Creating the source distribution with: make dist
+
+4. Uploading the source distribution to sourceforge.net with:
+	ncftpput download.sourceforge.net incoming <file>
+
+5. Commiting everything into CVS at cvs.volnorm.sourceforge.net
+
+6. Tagging the CVS with a tag of the form: release_MAJOR_MINOR_PATCH
+	for example release_0_3_4 for version 0.3.4
+
+7. Creating a release on sourceforge.net
+
+8. Updating the homepage to show the new version.
+
+9. Uploading the LSM and source distribution to ibiblio
+
+10. Announcing on freshmeat.net from the page:
+	 http://freshmeat.net/projects/volnorm/
+	(This can be skipped if it's a minor release)
+
+11. Notifying the XMMS folks about this new release so they update their pages.
+	 Who should be contacted? E-Mail address?

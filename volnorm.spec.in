@@ -1,0 +1,44 @@
+Summary: A Volume Normalizing plugin for XMMS
+Name: @PACKAGE@
+Version: @VERSION@
+Release: 1
+Copyright: GPL
+Group: Applications/Multimedia
+Url: http://volnorm.sourceforge.net/
+Packager: Baruch Even <baruch@users.sourceforge.net>
+Source: http://http://download.sourceforge.net/volnorm/volnorm-%{PACKAGE_VERSION}.tar.gz
+BuildRoot: /var/tmp/rpm/volnorm-root
+Prefix: /usr
+Requires: xmms
+
+%description
+This XMMS plugin changes the volume of played songs to a uniform level such
+that the base volume of all songs will be the same so that you will not need to
+play with the volume knob whenever a song changes.
+
+%prep
+%setup
+
+%build
+unset LINGUAS || true
+CFLAGS="$RPM_OPT_FLAGS" \
+./configure
+make
+
+%install
+unset LINGUAS || true
+rm -rf ${RPM_BUILD_ROOT}
+install -d -m 755 ${RPM_BUILD_ROOT}
+make prefix=${RPM_BUILD_ROOT}/usr install
+#gzip -f9 ${RPM_BUILD_ROOT}/usr/man/man?/*
+
+%clean
+rm -rf ${RPM_BUILD_ROOT}
+
+%files
+%attr(-,root,root) %doc ABOUT-NLS ANNOUNCE COPYING 
+%attr(-,root,root) %doc README ChangeLog NEWS
+
+%attr(-,root,root) /usr/bin/*
+%attr(-,root,root) /usr/man/*
+%attr(-,root,root) /usr/share/locale/*/LC_MESSAGES/*

@@ -13,8 +13,6 @@ The user should set a maximum multiplier.
 Make sure that the sample size is small enough, not larger than 1/100 of a 
 second worth of data.
 
-Add i18n support.
-
 Remember the maximum power level of the song when it stops playing so
 that next time we will have the maximum level from the start. However,
 even if there is a maximum the plugin should try to find the maximum again
@@ -37,4 +35,9 @@ it cut the volume *fast* if it's getting over a limit (ignoring a few short
 spikes, maybe), and only raise it slowly, but soon?  For example, check
 once per second or three, and raise in small increments...
 
+Add tests to the test driver, currently it only tests that the plugin is 
+loadable, if it's not loadable linking the test driver will fail.
 
+Complete, test and use the .spec file to create RPM's, solicit the debian
+equivalent from debian users. And have someone to create the .debs when
+doing file releases.
