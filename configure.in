@@ -1,0 +1,63 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(src/normvol.c)
+AM_INIT_AUTOMAKE(normalize-volume,0.2)
+AM_DISABLE_STATIC
+AM_PROG_LIBTOOL
+
+AC_ARG_ENABLE( one-plugin-dir,
+[  --enable-one-plugin-dir  use a single plugin dir [default=no]],,
+                enable_one_plugin_dir="no")
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PATH_PROG(XMMS_PATH,xmms,no)
+
+if test "x$XMMS_PATH" = "xno"; then
+	echo "XMMS does not appear to be installed."
+	exit 1
+fi
+
+dnl Checks for libraries.
+AM_PATH_GLIB(1.2.2,,AC_MSG_ERROR([*** GLIB >= 1.2.2 not installed - please install first ***]))
+AM_PATH_GTK(1.2.2,,AC_MSG_ERROR([*** GTK+ >= 1.2.2 not installed - please install first ***]),gthread)
+
+dnl Checks for header files.
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_INLINE
+
+dnl Checks for library functions.
+AC_HEADER_STDC
+AC_CHECK_FUNCS(strerror)
+
+if test $ac_cv_header_stdc = yes; then
+	AC_DEFINE(__STDC__)
+fi
+
+dnl Other stuff
+AC_MSG_CHECKING(machine architecture)
+AC_SUBST(ARCH_TYPE)
+ARCH_TYPE=`uname -m`
+AC_MSG_RESULT($ARCH_TYPE)
+
+AM_CONDITIONAL(ARCH_X86,test "$ARCH_TYPE" = "i386" || test "$ARCH_TYPE" = "i486" || test "$ARCH_TYPE" = "i586" || test "$ARCH_TYPE" = "i686" || test "$ARCH_TYPE" = "i86pc")
+
+AC_MSG_CHECKING(XMMS plugin dir)
+plugindir=`xmms-config --plugin-dir`
+AC_SUBST(plugindir)
+AC_MSG_RESULT($plugindir)
+
+if test "x$enable_one_plugin_dir" = "xyes"; then
+	VISUALIZATION_PLUGIN_DIR=Plugins
+else
+	VISUALIZATION_PLUGIN_DIR=Effect
+fi
+
+AC_SUBST(VISUALIZATION_PLUGIN_DIR)
+
+AC_OUTPUT(
+Makefile
+src/Makefile
+)
+

@@ -1,0 +1,15 @@
+2000-08-29
+
+	Released version 0.2
+
+	Fixed the problem with the song change detection, it now works! Altough it
+	will be better if there was some support for this in XMMS plugin architecture.
+
+2000-08-28
+
+	Initial public release of version 0.1
+	
+	This is still lacking, I found no way to know when the song changes so it
+	currently normalized the volume over all songs with the maximum found which is
+	plain wrong. But at least this plugin is a move toward a working volume
+	normalizer for XMMS.

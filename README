@@ -1,0 +1,39 @@
+WHAT IT IS
+	The volume normalizer plugin is intended to change the volume of playing songs
+	to some level such that they all will basically sound pretty much the same
+	in terms of volume.
+
+INSTALLATION
+	./configure
+	make
+	su -c "make install"
+
+USAGE
+	If XMMS was working, restart it.
+	From the Preferences dialog of XMMS select the Effects/General Plugins
+	page.
+	Select in the Effects plugins the Normalize Volume plugin and enable it.
+	You can launch the configuration dialog and choose to what level it will
+	modify all songs, the default is 0.25.
+
+AVAILABILITY
+	1. My homepage: http://techst02.technion.ac.il/~sbaruch/volnorm/
+	2. The xmms plugin page for now (see http://www.xmms.org/)
+
+LICENSE
+	Volume Normalizer Plugin for XMMS
+	Copyright (C) 2000 Baruch Even
+
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
