@@ -65,16 +65,16 @@ double SmoothGetMax(smooth_t * sm)
 	if (sm == NULL)
 		return -1.0;
 
+	/* If we haven't filled the smoothing buffer, dont save the max value. */
+	if (sm->used < sm->size)
+		return 1.0;
+	
 	/* Calculate the smoothed value */
 	smoothed = 0.0;
 	for (i = 0; i < sm->used; ++i)
 		smoothed += sm->data[i];
 	smoothed = smoothed / sm->used;
 
-	/* If we haven't filled the smoothing buffer, dont save the max value. */
-	if (sm->used < sm->size)
-		return smoothed;
-	
 	if (sm->max < smoothed)
 		sm->max = smoothed;
 

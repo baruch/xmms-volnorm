@@ -1,8 +1,31 @@
-Stuff that needs doing:
+1. Stuff that was implemented and needs testing:
+
+Change nothing until the queue is filled, this will avoid the song
+start noise.
+
+2. Stuff that needs doing:
 
 Make sure that the sample size is small enough, not larger than 1/100 of a 
 second worth of data.
 
-Possibly save a value for each song, so that after we played a song once we'll have a ready value for it next time.
-
 Add i18n support.
+
+Remember the maximum power level of the song when it stops playing so
+that next time we will have the maximum level from the start. However,
+even if there is a maximum the plugin should try to find the maximum again
+and save the newly found maximum for next time, this is good for
+retraining if a song was changed from last time or if the song was not
+heard to its full length last time.
+
+Keep a tab on the multiplier and the maximum sample so that we do not
+clip the samples.
+
+Find a way to search the power of songs from the playlist when they
+are not played (for example by using a timer and a low priority thread).
+
+Allow the user to set the size of the queue.
+
+The user should set a maximum multiplier.
+
+The user should set a minimum power to adjust, below it we change
+nothing and consider it as silence.
