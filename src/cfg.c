@@ -9,7 +9,7 @@
 
 #define DEFAULT_LEVEL 0.25
 #define DEFAULT_SILENCE 0.01
-#define DEFAULT_MAX_MULT 15.0
+#define DEFAULT_MAX_MULT 10.0
 
 double normalize_level = DEFAULT_LEVEL;
 double silence_level = DEFAULT_SILENCE;

@@ -174,11 +174,15 @@ static int normvol_mod_samples(gpointer* d, gint length, AFormat afmt, gint srat
 
 	}
 
+	printf("Target: %f, Level: %f", normalize_level, level);
+		
 	/* Only if the volume is higher than the silence level do something. */
 	if (level > silence_level) {
 		/* Calculate the gain for the level */
-		double gain = normalize_level / sqrt(level);
+		double gain = normalize_level / level;
 
+		printf(", Gain: %f", gain);
+		
 		/* Make sure the gain is not above the maximum multiplier */
 		if (gain > max_mult)
 			gain = max_mult;
@@ -189,6 +193,7 @@ static int normvol_mod_samples(gpointer* d, gint length, AFormat afmt, gint srat
 		/* printf("Max level is %f, Gain is %f\n", level, gain); */
 	}
 
+	printf("\n");
 	return length;
 }
 
@@ -213,7 +218,11 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 	channel = 0;
 	for (i = 0; i < length/2; ++i) {
 		gint32 sample = *data;
-		sum[channel] += sample * sample;
+		
+		/* Adjust the level to be between 0.0 -- 1.0 */
+		double temp = ((double)sample) / ((double)G_MAXSHORT);
+			
+		sum[channel] += temp*temp;
 		
 		++data;
 
@@ -224,15 +233,14 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 	
 	/* Add the power level to the smoothing queue */
 	{
-		double channel_length = length/2;
+		double channel_length = length/2.0;
 		
 		for (channel = 0; channel < nch; ++channel) {
 			double level = sum[channel] / channel_length;
 			
-			/* Adjust the level to be between 0.0 -- 1.0 */
-			level = level / (G_MAXSHORT * G_MAXSHORT);
+/*			printf("Internal level [%d]: %f\n", channel, level);*/
 
-			SmoothAddSample(smooth[channel], level);
+			SmoothAddSample(smooth[channel], sqrt(level));
 		}
 	}
 }
