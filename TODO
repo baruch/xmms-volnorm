@@ -28,3 +28,13 @@ are not played (for example by using a timer and a low priority thread).
 Allow the user to set the size of the queue.
 
 Need to keep tab of the multiplier so that clipping will not occur.
+
+From: Deven T. Corzine <deven@ties.org>
+Actually, I was having a problem where it would take a long time to change,
+then leap to a new volume.  I'm trying to use this to keep music audible
+while keeping it from getting too loud at work.  Is there any way to have
+it cut the volume *fast* if it's getting over a limit (ignoring a few short
+spikes, maybe), and only raise it slowly, but soon?  For example, check
+once per second or three, and raise in small increments...
+
+
