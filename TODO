@@ -1,7 +1,8 @@
 Stuff that needs doing:
 
-Make sure that the sample size is small enough, not larger than 1/100 of a second
-worth of data.
+Make sure that the sample size is small enough, not larger than 1/100 of a 
+second worth of data.
 
-Possibly save a value for each song, so that after we played a song once we'll have
-a ready value for it next time.
+Possibly save a value for each song, so that after we played a song once we'll have a ready value for it next time.
+
+Add i18n support.
