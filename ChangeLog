@@ -1,5 +1,10 @@
 2000-09-15  Baruch Even  <baruch.even@writeme.com>
 
+	* src/cfg.h: Changed the ifdef protection, it clashed with config.h
+	* src/cfg.c: Changed variable from max_level to max_mult
+	
+2000-09-15  Baruch Even  <baruch.even@writeme.com>
+
 	* configure.in:
 	* src/smooth.c: Added the use of src/config.h
 

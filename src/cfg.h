@@ -1,7 +1,7 @@
 /* config.h */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef CFG_H
+#define CFG_H
 
 /**
  * Read the config data into the global variables.
