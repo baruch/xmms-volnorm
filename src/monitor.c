@@ -22,12 +22,15 @@
 
 /* ======================================================================== */
 
+/* I disable it since its incomplete */
+#ifdef ENABLE_MONITOR
+
 #include "config.h"
 #include "support.h"
 
 #include <glib.h>
-#include <gdk.h>
-#include <gtk.h>
+#include <gdk/gdk.h>
+#include <gtk/gtk.h>
 
 struct _Monitor {
 	GtkWidget *window;
@@ -68,3 +71,5 @@ void monitor_add_data(Monitor * monitor, double power, double gain)
 void monitor_file_change(void)
 {
 }
+
+#endif

@@ -12,9 +12,9 @@
 
 #include "cfg.h"
 
-static double temp_normalize_level = 0.0;
-static double temp_silence_level = 0.0;
-static double temp_max_mult = 0.0;
+static double temp_normalize_level = -1.0;
+static double temp_silence_level = -1.0;
+static double temp_max_mult = -1.0;
 
 static void
 volnorm_prefs_value_changed(GtkAdjustment * adj, gpointer user_data)
@@ -37,6 +37,13 @@ volnorm_prefs_value_changed(GtkAdjustment * adj, gpointer user_data)
 		default:
 			printf("ERROR in preferences dialog callback!\n");
 	}
+
+	if (temp_normalize_level < 0.0)
+		temp_normalize_level = normalize_level;
+	if (temp_silence_level < 0.0)
+		temp_silence_level = silence_level;
+	if (temp_max_mult < 0.0)
+		temp_max_mult = max_mult;
 }
 
 static void 

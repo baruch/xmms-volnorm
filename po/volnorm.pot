@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-09-28 16:22+0200\n"
+"POT-Creation-Date: 2000-09-28 18:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,6 +70,6 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/monitor.c:58
+#: src/monitor.c:61
 msgid "Volume Normalizing plugin Monitor"
 msgstr ""
