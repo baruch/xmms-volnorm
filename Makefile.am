@@ -11,3 +11,6 @@ dist-hook: @PACKAGE@.spec.in @PACKAGE@.lsm.in
 	cp @PACKAGE@.spec $(distdir)
 	cp @PACKAGE@.lsm $(distdir)
 								
+gui:
+	cd src; make gui
+
