@@ -209,6 +209,7 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 	gint i = 0;
 	double sum[MAX_CHANNELS];
 	static const double NORMAL = 1/( (double)G_MAXSHORT );
+	static const double NORMAL_SQUARED = NORMAL*NORMAL;
 
 	gint16 * data = (gint16 *) *d;
 
@@ -222,24 +223,23 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 	 */
 
 	/* length is in bytes we use shorts */
-	channel = 0;
-	for (i = 0; i < length/2; ++i) {
-		gint32 sample = *data;
-		
-		/* Adjust the level to be between 0.0 -- 1.0 */
+	for (i = 0, channel = 0; i < length/2; ++i, ++data) {
+		double sample = *data;
+	
+		/* Calculate sample^2 and 
+		   Adjust the level to be between 0.0 -- 1.0 */
 		double temp = sample*sample;
 			
-		sum[channel] += temp * NORMAL*NORMAL;
+		sum[channel] += temp * NORMAL_SQUARED;
 		
 		/* Switch to the next channel */
 		++channel;
 		channel = channel % nch;
-		++data;
 	}
 	
 	/* Add the power level to the smoothing queue */
 	{
-		double channel_length = 1/(length*0.5);
+		double channel_length = 2.0/length;
 		
 		for (channel = 0; channel < nch; ++channel) {
 			double level = sum[channel] * channel_length;
