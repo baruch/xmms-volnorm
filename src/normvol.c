@@ -174,14 +174,18 @@ static int normvol_mod_samples(gpointer* d, gint length, AFormat afmt, gint srat
 
 	}
 
+#ifdef PRINT_MONITOR
 	printf("Target: %f, Level: %f", normalize_level, level);
-		
+#endif
+	
 	/* Only if the volume is higher than the silence level do something. */
 	if (level > silence_level) {
 		/* Calculate the gain for the level */
 		double gain = normalize_level / level;
 
+#ifdef PRINT_MONITOR		
 		printf(", Gain: %f", gain);
+#endif
 		
 		/* Make sure the gain is not above the maximum multiplier */
 		if (gain > max_mult)
@@ -193,7 +197,10 @@ static int normvol_mod_samples(gpointer* d, gint length, AFormat afmt, gint srat
 		/* printf("Max level is %f, Gain is %f\n", level, gain); */
 	}
 
+#ifdef PRINT_MONITOR
 	printf("\n");
+#endif
+	
 	return length;
 }
 
