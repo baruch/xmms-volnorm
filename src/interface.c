@@ -103,14 +103,14 @@ create_volnorm (void)
   gtk_widget_show (label7);
   gtk_box_pack_start (GTK_BOX (vbox1), label7, FALSE, FALSE, 0);
 
-  hscale_silence_level = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (0.01, 0, 1, 0.01, 0.1, 0)));
+  hscale_silence_level = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (0.001, 0, 0.01, 1e-04, 0.001, 0)));
   gtk_widget_set_name (hscale_silence_level, "hscale_silence_level");
   gtk_widget_ref (hscale_silence_level);
   gtk_object_set_data_full (GTK_OBJECT (volnorm), "hscale_silence_level", hscale_silence_level,
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (hscale_silence_level);
   gtk_box_pack_start (GTK_BOX (vbox1), hscale_silence_level, FALSE, FALSE, 0);
-  gtk_scale_set_digits (GTK_SCALE (hscale_silence_level), 2);
+  gtk_scale_set_digits (GTK_SCALE (hscale_silence_level), 4);
 
   label8 = gtk_label_new (_("Maximum Multiplier"));
   gtk_widget_set_name (label8, "label8");

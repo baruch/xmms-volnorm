@@ -1,3 +1,8 @@
+2000-10-18  Baruch Even  <baruch.even@writeme.com>
+
+	* src/volnorm.glade: Changed the silence level to be between 0 -- 0.01
+	with possible increments of 0.0001. This will provide better audio quality.
+
 2000-09-24  Baruch Even  <baruch.even@writeme.com>
 
 	* src/normvol.c: Added debug prints in order to help improve the settings
