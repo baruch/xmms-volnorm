@@ -1,3 +1,7 @@
+2001-01-03  Sourav K. Mandal  <Sourav.Mandal@ikaran.com>
+
+	* volnorm.spec.in: Fixed the spec file.
+
 2000-10-23  Baruch Even  <baruch.even@writeme.com>
 
 	* configure.in: Changed to allow a new configure directive: 

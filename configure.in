@@ -35,13 +35,25 @@ AC_MSG_CHECKING(XMMS plugin dir)
 AC_SUBST(plugindir)
 AC_MSG_RESULT($plugindir)
 
-if test "x$enable_one_plugin_dir" = "xyes"; then
-	VISUALIZATION_PLUGIN_DIR=Plugins
-else
-	VISUALIZATION_PLUGIN_DIR=Effect
-fi
+dnl if test "x$enable_one_plugin_dir" = "xyes"; then
+dnl	VISUALIZATION_PLUGIN_DIR=Plugins
+dnl else
+dnl	VISUALIZATION_PLUGIN_DIR=Effect
+dnl fi
+dnl 
+dnl AC_SUBST(VISUALIZATION_PLUGIN_DIR)
 
-AC_SUBST(VISUALIZATION_PLUGIN_DIR)
+if test ! -d "$libdir"; then
+  if test "x$enable_one_plugin_dir" = "xyes"; then
+    AC_MSG_CHECKING(XMMS single plugin dir)
+    libdir="$plugindir/Plugins"
+    AC_MSG_RESULT($libdir)
+  else
+    AC_MSG_CHECKING(XMMS Effect plugin dir)
+    libdir=`xmms-config --effect-plugin-dir`
+    AC_MSG_RESULT($libdir)
+  fi
+fi 
 
 dnl Checks for libraries.
 AM_PATH_GLIB(1.2.6,,AC_MSG_ERROR([*** GLIB >= 1.2.6 not installed - please install first ***]))

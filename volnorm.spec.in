@@ -1,46 +1,75 @@
-# INCOMPLETE or at least untested.
+#### Header variables
+%define name @PACKAGE@
+%define version @VERSION@
+%define release 1
+%define serial 1
 
-Summary: A Volume Normalizing plugin for XMMS
-Name: @PACKAGE@
-Version: @VERSION@
-Release: 1
+# Override standard libdir with xmms config
+%define _libdir @libdir@
+
+#### Useful macros
+# Attempt to avoid disaster
+%define clean_build_root if test -O "%{buildroot}" -a "%{buildroot}" != "/" -a "%{buildroot}" != "$HOME"; then %{__rm} -rf %{buildroot}; fi
+# To delete directory where compilation takes place
+%define clean_build_dir %{__rm} -rf %{buildsubdir}
+
+#### Header
+Summary: XMMS - Plugin for Normalizing Volume
+Name: %{name}
+Version: %{version}
+Release: %{release}
+Serial: %{serial}
 Copyright: GPL
 Group: Applications/Multimedia
+Vendor: Baruch Even <baruch@users.sourceforge.net>
+Packager: %packager
 Url: http://volnorm.sourceforge.net/
-Packager: Baruch Even <baruch@users.sourceforge.net>
-Source: http://http://download.sourceforge.net/volnorm/volnorm-%{PACKAGE_VERSION}.tar.gz
-BuildRoot: /var/tmp/rpm/volnorm-root
-Prefix: /usr
-Requires: xmms, gtk+ >= 1.2.6, glib >= 1.2.6
+Source: %{name}-%{version}.tar.gz
+Prefix: %{_prefix}
+Requires: xmms
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
+#### Description
 %description
 This XMMS plugin changes the volume of played songs to a uniform level such
 that the base volume of all songs will be the same so that you will not need to
 play with the volume knob whenever a song changes.
 
+#### Prep
 %prep
-%setup
+%setup -q
 
+#### Build
 %build
-unset LINGUAS || true
-CFLAGS="$RPM_OPT_FLAGS" \
-./configure
-make
+%configure
+# Build user might have his/her own special "make" hooks
+%__make
 
+#### Install
 %install
-unset LINGUAS || true
-rm -rf ${RPM_BUILD_ROOT}
-install -d -m 755 ${RPM_BUILD_ROOT}
-make prefix=${RPM_BUILD_ROOT}/usr install
-#gzip -f9 ${RPM_BUILD_ROOT}/usr/man/man?/*
+%clean_build_root
+%makeinstall
 
+#### Clean
 %clean
-rm -rf ${RPM_BUILD_ROOT}
+%clean_build_root
+%clean_build_dir
 
+#### Post
+# Nothing to do
+
+#### Files
 %files
-%attr(-,root,root) %doc ABOUT-NLS ANNOUNCE COPYING 
-%attr(-,root,root) %doc README ChangeLog NEWS
+%defattr(-, root, root)
+%doc AUTHORS BUGS COPYING ChangeLog INSTALL NEWS README RELEASE TODO
+%{_bindir}/*
+%{_libdir}/*
+#%{_mandir}/man?/* 
+#%{_datadir}/locale/*/LC_MESSAGES/* 
 
-%attr(-,root,root) /usr/bin/*
-%attr(-,root,root) /usr/man/*
-%attr(-,root,root) /usr/share/locale/*/LC_MESSAGES/*
+#### Changelog
+%changelog
+
+* Wed Jan 03 2001 Sourav K. Mandal <Sourav.Mandal@ikaran.com>
+- New spec file incorporated in tarball package
+

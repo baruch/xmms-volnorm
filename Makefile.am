@@ -3,11 +3,13 @@ SUBDIRS=src tests intl po
 DISTCLEANFILES= *.orig *.rej *~ *.bak core
 
 EXTRA_DIST = BUGS RELEASE \
-	volnorm.spec volnorm.spec.in \
-	volnorm.lsm volnorm.lsm.in \
-	config glade
+	@PACKAGE@.spec.in \
+	@PACKAGE@.lsm.in \
+	config/* \
+	glade/* \
+	glade/src/*
 
-dist-hook:
-	cd $(distdir) ; \
-	rm -rf `find . -name \*CVS\*`
+dist-hook: @PACKAGE@.spec.in @PACKAGE@.lsm.in
+	cp @PACKAGE@.spec $(distdir)
+	cp @PACKAGE@.lsm $(distdir)
 								
