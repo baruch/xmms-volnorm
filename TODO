@@ -3,6 +3,11 @@
 Change nothing until the queue is filled, this will reduce the song
 start noise.
 
+The user should set a minimum power to adjust, below it we change
+nothing and consider it as silence.
+The user should set a maximum multiplier.
+(Needs to add this to the UI, currently it can be changed in compile time only)
+
 2. Stuff that needs doing:
 
 Make sure that the sample size is small enough, not larger than 1/100 of a 
@@ -17,15 +22,9 @@ and save the newly found maximum for next time, this is good for
 retraining if a song was changed from last time or if the song was not
 heard to its full length last time.
 
-Keep a tab on the multiplier and the maximum sample so that we do not
-clip the samples.
-
 Find a way to search the power of songs from the playlist when they
 are not played (for example by using a timer and a low priority thread).
 
 Allow the user to set the size of the queue.
 
-The user should set a maximum multiplier.
-
-The user should set a minimum power to adjust, below it we change
-nothing and consider it as silence.
+Need to keep tab of the multiplier so that clipping will not occur.

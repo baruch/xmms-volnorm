@@ -136,7 +136,6 @@ static void normvol_configure(void)
 
 static int normvol_mod_samples(gpointer* d, gint length, AFormat afmt, gint srate, gint nch)
 {
-	double gain = 1.0;
 	double level = -1.0;
 
 	/* Check only the last one, if it is allocated, most probably the others are
@@ -175,14 +174,19 @@ static int normvol_mod_samples(gpointer* d, gint length, AFormat afmt, gint srat
 
 	}
 
-	if (level > 0.0) {
+	/* Only if the volume is higher than the silence level do something. */
+	if (level > silence_level) {
 		/* Calculate the gain for the level */
-		gain = normalize_level / sqrt(level);
+		double gain = normalize_level / sqrt(level);
+
+		/* Make sure the gain is not above the maximum multiplier */
+		if (gain > max_mult)
+			gain = max_mult;
 
 		/* Adjust the gain with the smoothed value */
 		adjust_gain(d, length, gain);
 		
-/*		printf("Max level is %f, Gain is %f\n", level, gain);*/
+		/* printf("Max level is %f, Gain is %f\n", level, gain); */
 	}
 
 	return length;

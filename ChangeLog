@@ -1,3 +1,11 @@
+2000-09-14  Baruch Even  <baruch.even@writeme.com>
+
+	* src/cfg.h:
+	* src/cfg.c: Added config variables to support the maximum multiplier and
+	silence level.
+
+	* src/normvol.c: Added support for maximum multiplier and silence level.
+
 2000-09-09  Baruch Even  <baruch.even@writeme.com>
 
 	* src/smooth.c: Do not adjust anything until smoothing buffer is full. This
