@@ -5,6 +5,8 @@ often produces several sudden increases of the volume level in a row,
 with... ehm... interesting effects on the nerves of my office mates. You
 should probably test it on a machine with sound hardware."
 
+BE (2000-09-26): I have not encountered the problem as reported.
+
 Something related, the volume at the start changes abruptly when the buffer
 gets filled and gain changes are started to be done. This is somewhat
 annoying. A smoothing effect should be done on the gain so that there should
@@ -18,9 +20,12 @@ both xmms + plugin GTK configuration window freeze, when I try configure
 plugin.
 I use xmms 1.2.2 (debian package), plugin version 0.3.4 and ESD daemon instead
 of direct access to /dev/dsp.
-	
+
+BE: I tried this locally and I find no problem (2000-09-26)
+
 -----------------------------------------------------------------------------
 
-The directories glade and config are not part of the distribution.
+The testload program from the tests/ directory is being installed, this is 
+futile as it does nothing but ensure that the plugin is loadable.
 
 -----------------------------------------------------------------------------
