@@ -1,12 +1,26 @@
+-----------------------------------------------------------------------------
 A report from Vincenzo Gervasi <gervasi@margot.di.unipi.it>:
 "Also, the plugin
 often produces several sudden increases of the volume level in a row,
 with... ehm... interesting effects on the nerves of my office mates. You
 should probably test it on a machine with sound hardware."
 
+Something related, the volume at the start changes abruptly when the buffer
+gets filled and gain changes are started to be done. This is somewhat
+annoying. A smoothing effect should be done on the gain so that there should
+be a last_gain variable and a wanted gain and the rise from one to the other
+should be smoothed. Volume reduction should probably be smoothed too but in 
+a faster rate. This is called Attack time or something like that.
+
+-----------------------------------------------------------------------------
+
 both xmms + plugin GTK configuration window freeze, when I try configure 
 plugin.
 I use xmms 1.2.2 (debian package), plugin version 0.3.4 and ESD daemon instead
 of direct access to /dev/dsp.
 	
+-----------------------------------------------------------------------------
+
 The directories glade and config are not part of the distribution.
+
+-----------------------------------------------------------------------------
