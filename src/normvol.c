@@ -208,8 +208,6 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 	gint channel = 0;
 	gint i = 0;
 	double sum[MAX_CHANNELS];
-	static const double NORMAL = 1/( (double)G_MAXSHORT );
-	static const double NORMAL_SQUARED = NORMAL*NORMAL;
 
 	gint16 * data = (gint16 *) *d;
 
@@ -230,7 +228,7 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 		   Adjust the level to be between 0.0 -- 1.0 */
 		double temp = sample*sample;
 			
-		sum[channel] += temp * NORMAL_SQUARED;
+		sum[channel] += temp;
 		
 		/* Switch to the next channel */
 		++channel;
@@ -239,10 +237,12 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 	
 	/* Add the power level to the smoothing queue */
 	{
+		static const double NORMAL = 1.0/( (double)G_MAXSHORT );
+		static const double NORMAL_SQUARED = NORMAL*NORMAL;
 		double channel_length = 2.0/length;
 		
 		for (channel = 0; channel < nch; ++channel) {
-			double level = sum[channel] * channel_length;
+			double level = sum[channel] * channel_length * NORMAL_SQUARED;
 			
 			/* printf("Internal level [%d]: %f\n", channel, level);*/
 
