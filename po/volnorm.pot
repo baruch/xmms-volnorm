@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-09-26 16:44+0200\n"
+"POT-Creation-Date: 2000-09-28 16:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,24 +14,60 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/interface.c:39
-msgid "Normalize Volume Plugin Configurator"
+#: src/interface.c:53
+msgid "Volume Normalizing plugin Config"
 msgstr ""
 
-#: src/interface.c:57
-msgid "Power level to adjust for"
-msgstr ""
-
-#: src/interface.c:89
-msgid "OK"
+#: src/interface.c:80
+msgid "Target power level"
 msgstr ""
 
 #: src/interface.c:98
-msgid "Cancel"
+msgid "Silence level"
 msgstr ""
 
-#: src/interface.c:107
+#: src/interface.c:115
+msgid "Maximum Multiplier"
+msgstr ""
+
+#: src/interface.c:132
+msgid "Level"
+msgstr ""
+
+#: src/interface.c:149
+msgid "This"
+msgstr ""
+
+#: src/interface.c:157
+msgid "Currently"
+msgstr ""
+
+#: src/interface.c:165
+msgid "Holds nothing"
+msgstr ""
+
+#: src/interface.c:173
+msgid "Effects"
+msgstr ""
+
+#: src/interface.c:190
+msgid "Use monitor"
+msgstr ""
+
+#: src/interface.c:214
+msgid "Monitor"
+msgstr ""
+
+#: src/interface.c:228
+msgid "OK"
+msgstr ""
+
+#: src/interface.c:236
 msgid "Apply"
+msgstr ""
+
+#: src/interface.c:244
+msgid "Cancel"
 msgstr ""
 
 #: src/monitor.c:58

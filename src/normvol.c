@@ -14,6 +14,7 @@
 #include "cfg.h"
 #include "smooth.h"
 #include "interface.h"
+#include "callbacks.h"
 #include "support.h"
 
 static void normvol_init(void);
@@ -111,25 +112,14 @@ static void normvol_cleanup(void) {
 static void normvol_configure(void) 
 {
 	GtkWidget * dialog = NULL;
-	GtkWidget * hscale = NULL;
 
 	/* Create the dialog */
-	dialog = create_dialog_configuration();
+	dialog = create_volnorm();
 	g_assert(dialog);
 	g_return_if_fail(dialog != NULL);
+
+	volnorm_dialog_prefs_update(dialog);
 	
-	/* Get the horizontal scale from inside the dialog */
-	hscale = lookup_widget(dialog, "hscale_level");
-	g_assert(hscale);
-	g_return_if_fail(hscale != NULL);
-
-	{
-		/* Get the adjustment out of the hscale, and set the value */
-		GtkRange * range = GTK_RANGE(hscale);
-		GtkAdjustment * adjustment = gtk_range_get_adjustment(range);
-		gtk_adjustment_set_value(adjustment, normalize_level);
-	}
-
 	/* Show the dialog */
 	gtk_widget_show(dialog);
 }
@@ -137,6 +127,8 @@ static void normvol_configure(void)
 static int normvol_mod_samples(gpointer* d, gint length, AFormat afmt, gint srate, gint nch)
 {
 	double level = -1.0;
+	gint to_avoid_warning = srate;
+	srate = to_avoid_warning;
 
 	/* Check only the last one, if it is allocated, most probably the others are
 	 * too.

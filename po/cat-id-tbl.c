@@ -8,12 +8,21 @@
 
 const struct _msg_ent _msg_tbl[] = {
   {"", 1},
-  {"Normalize Volume Plugin Configurator", 2},
-  {"Power level to adjust for", 3},
-  {"OK", 4},
-  {"Cancel", 5},
-  {"Apply", 6},
-  {"Volume Normalizing plugin Monitor", 7},
+  {"Volume Normalizing plugin Config", 2},
+  {"Target power level", 3},
+  {"Silence level", 4},
+  {"Maximum Multiplier", 5},
+  {"Level", 6},
+  {"This", 7},
+  {"Currently", 8},
+  {"Holds nothing", 9},
+  {"Effects", 10},
+  {"Use monitor", 11},
+  {"Monitor", 12},
+  {"OK", 13},
+  {"Apply", 14},
+  {"Cancel", 15},
+  {"Volume Normalizing plugin Monitor", 16},
 };
 
-int _msg_tbl_length = 7;
+int _msg_tbl_length = 16;

@@ -1,10 +1,6 @@
 1. Stuff that was implemented and needs testing:
 
-The user should set a minimum power to adjust, below it we change
-nothing and consider it as silence.
-The user should set a maximum multiplier.
-(Needs to add this to the UI, currently it can be changed in compile time 
-or manually in the config file)
+NA
 
 2. Stuff that needs doing:
 
@@ -42,3 +38,9 @@ loadable, if it's not loadable linking the test driver will fail.
 Complete, test and use the .spec file to create RPM's, solicit the debian
 equivalent from debian users. And have someone to create the .debs when
 doing file releases.
+
+As a part of the normalization it might be applicable to use Fade-in/Fade-out
+to avoid startling noise at the start if a song starts loud, or a hard cut
+if a song ends loud. This can be expressed in duration (seconds) that it takes
+to change from a zero multiplier (complete silence) to no change, it is also
+possible to add a start multiplier so that it will not need to start from 0.

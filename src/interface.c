@@ -19,113 +19,249 @@
 #include "support.h"
 
 GtkWidget*
-create_dialog_configuration (void)
+create_volnorm (void)
 {
-  GtkWidget *dialog_configuration;
+  GtkWidget *volnorm;
   GtkWidget *dialog_vbox1;
+  GtkWidget *notebook1;
   GtkWidget *vbox1;
   GtkWidget *label1;
-  GtkObject *adjustment;
-  GtkWidget *hscale_level;
+  GtkWidget *hscale_target_power;
+  GtkWidget *label7;
+  GtkWidget *hscale_silence_level;
+  GtkWidget *label8;
+  GtkWidget *hscale_max_mult;
+  GtkWidget *page_level;
+  GtkWidget *vbox2;
+  GtkWidget *label2;
+  GtkWidget *label3;
+  GtkWidget *label4;
+  GtkWidget *page_effects;
+  GtkWidget *vbox3;
+  GtkWidget *checkbutton_monitor;
+  GtkWidget *label5;
+  GtkWidget *label6;
+  GtkWidget *page_monitor;
   GtkWidget *dialog_action_area1;
-  GtkWidget *hbuttonbox1;
   GtkWidget *button_ok;
-  GtkWidget *button_cancel;
   GtkWidget *button_apply;
+  GtkWidget *button_cancel;
 
-  dialog_configuration = gtk_dialog_new ();
-  gtk_widget_set_name (dialog_configuration, "dialog_configuration");
-  gtk_object_set_data (GTK_OBJECT (dialog_configuration), "dialog_configuration", dialog_configuration);
-  gtk_window_set_title (GTK_WINDOW (dialog_configuration), _("Normalize Volume Plugin Configurator"));
-  GTK_WINDOW (dialog_configuration)->type = GTK_WINDOW_DIALOG;
-  gtk_window_set_policy (GTK_WINDOW (dialog_configuration), TRUE, TRUE, TRUE);
+  volnorm = gtk_dialog_new ();
+  gtk_widget_set_name (volnorm, "volnorm");
+  gtk_object_set_data (GTK_OBJECT (volnorm), "volnorm", volnorm);
+  gtk_window_set_title (GTK_WINDOW (volnorm), _("Volume Normalizing plugin Config"));
+  gtk_window_set_policy (GTK_WINDOW (volnorm), TRUE, TRUE, TRUE);
+  gtk_window_set_wmclass (GTK_WINDOW (volnorm), "VOLNORM", "VOLNORM");
 
-  dialog_vbox1 = GTK_DIALOG (dialog_configuration)->vbox;
+  dialog_vbox1 = GTK_DIALOG (volnorm)->vbox;
   gtk_widget_set_name (dialog_vbox1, "dialog_vbox1");
-  gtk_object_set_data (GTK_OBJECT (dialog_configuration), "dialog_vbox1", dialog_vbox1);
+  gtk_object_set_data (GTK_OBJECT (volnorm), "dialog_vbox1", dialog_vbox1);
   gtk_widget_show (dialog_vbox1);
+
+  notebook1 = gtk_notebook_new ();
+  gtk_widget_set_name (notebook1, "notebook1");
+  gtk_widget_ref (notebook1);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "notebook1", notebook1,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (notebook1);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox1), notebook1, TRUE, TRUE, 0);
+  gtk_notebook_set_tab_hborder (GTK_NOTEBOOK (notebook1), 5);
 
   vbox1 = gtk_vbox_new (FALSE, 3);
   gtk_widget_set_name (vbox1, "vbox1");
   gtk_widget_ref (vbox1);
-  gtk_object_set_data_full (GTK_OBJECT (dialog_configuration), "vbox1", vbox1,
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "vbox1", vbox1,
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (vbox1);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox1), vbox1, TRUE, TRUE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox1), 4);
+  gtk_container_add (GTK_CONTAINER (notebook1), vbox1);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox1), 6);
 
-  label1 = gtk_label_new (_("Power level to adjust for"));
+  label1 = gtk_label_new (_("Target power level"));
   gtk_widget_set_name (label1, "label1");
   gtk_widget_ref (label1);
-  gtk_object_set_data_full (GTK_OBJECT (dialog_configuration), "label1", label1,
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label1", label1,
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (label1);
   gtk_box_pack_start (GTK_BOX (vbox1), label1, FALSE, FALSE, 0);
 
-  adjustment = gtk_adjustment_new (0.25, 0, 1, 0.01, 0.1, 0);
-  hscale_level = gtk_hscale_new (GTK_ADJUSTMENT (adjustment));
-  gtk_widget_set_name (hscale_level, "hscale_level");
-  gtk_widget_ref (hscale_level);
-  gtk_object_set_data_full (GTK_OBJECT (dialog_configuration), "hscale_level", hscale_level,
+  hscale_target_power = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (0.25, 0, 1, 0.01, 0.1, 0)));
+  gtk_widget_set_name (hscale_target_power, "hscale_target_power");
+  gtk_widget_ref (hscale_target_power);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "hscale_target_power", hscale_target_power,
                             (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (hscale_level);
-  gtk_box_pack_start (GTK_BOX (vbox1), hscale_level, TRUE, TRUE, 0);
-  gtk_scale_set_digits (GTK_SCALE (hscale_level), 2);
+  gtk_widget_show (hscale_target_power);
+  gtk_box_pack_start (GTK_BOX (vbox1), hscale_target_power, FALSE, TRUE, 0);
+  gtk_widget_set_usize (hscale_target_power, 100, -2);
+  gtk_scale_set_digits (GTK_SCALE (hscale_target_power), 2);
 
-  dialog_action_area1 = GTK_DIALOG (dialog_configuration)->action_area;
+  label7 = gtk_label_new (_("Silence level"));
+  gtk_widget_set_name (label7, "label7");
+  gtk_widget_ref (label7);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label7", label7,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (label7);
+  gtk_box_pack_start (GTK_BOX (vbox1), label7, FALSE, FALSE, 0);
+
+  hscale_silence_level = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (0.01, 0, 1, 0.01, 0.1, 0)));
+  gtk_widget_set_name (hscale_silence_level, "hscale_silence_level");
+  gtk_widget_ref (hscale_silence_level);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "hscale_silence_level", hscale_silence_level,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (hscale_silence_level);
+  gtk_box_pack_start (GTK_BOX (vbox1), hscale_silence_level, FALSE, FALSE, 0);
+  gtk_scale_set_digits (GTK_SCALE (hscale_silence_level), 2);
+
+  label8 = gtk_label_new (_("Maximum Multiplier"));
+  gtk_widget_set_name (label8, "label8");
+  gtk_widget_ref (label8);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label8", label8,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (label8);
+  gtk_box_pack_start (GTK_BOX (vbox1), label8, FALSE, FALSE, 0);
+
+  hscale_max_mult = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (5, 0, 15, 0.25, 1, 0)));
+  gtk_widget_set_name (hscale_max_mult, "hscale_max_mult");
+  gtk_widget_ref (hscale_max_mult);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "hscale_max_mult", hscale_max_mult,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (hscale_max_mult);
+  gtk_box_pack_start (GTK_BOX (vbox1), hscale_max_mult, FALSE, FALSE, 0);
+  gtk_scale_set_digits (GTK_SCALE (hscale_max_mult), 2);
+
+  page_level = gtk_label_new (_("Level"));
+  gtk_widget_set_name (page_level, "page_level");
+  gtk_widget_ref (page_level);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "page_level", page_level,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (page_level);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 0), page_level);
+
+  vbox2 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox2, "vbox2");
+  gtk_widget_ref (vbox2);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "vbox2", vbox2,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (vbox2);
+  gtk_container_add (GTK_CONTAINER (notebook1), vbox2);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox2), 6);
+
+  label2 = gtk_label_new (_("This"));
+  gtk_widget_set_name (label2, "label2");
+  gtk_widget_ref (label2);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label2", label2,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (label2);
+  gtk_box_pack_start (GTK_BOX (vbox2), label2, FALSE, FALSE, 0);
+
+  label3 = gtk_label_new (_("Currently"));
+  gtk_widget_set_name (label3, "label3");
+  gtk_widget_ref (label3);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label3", label3,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (label3);
+  gtk_box_pack_start (GTK_BOX (vbox2), label3, FALSE, FALSE, 0);
+
+  label4 = gtk_label_new (_("Holds nothing"));
+  gtk_widget_set_name (label4, "label4");
+  gtk_widget_ref (label4);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label4", label4,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (label4);
+  gtk_box_pack_start (GTK_BOX (vbox2), label4, FALSE, FALSE, 0);
+
+  page_effects = gtk_label_new (_("Effects"));
+  gtk_widget_set_name (page_effects, "page_effects");
+  gtk_widget_ref (page_effects);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "page_effects", page_effects,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (page_effects);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 1), page_effects);
+
+  vbox3 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox3, "vbox3");
+  gtk_widget_ref (vbox3);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "vbox3", vbox3,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (vbox3);
+  gtk_container_add (GTK_CONTAINER (notebook1), vbox3);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox3), 6);
+
+  checkbutton_monitor = gtk_check_button_new_with_label (_("Use monitor"));
+  gtk_widget_set_name (checkbutton_monitor, "checkbutton_monitor");
+  gtk_widget_ref (checkbutton_monitor);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "checkbutton_monitor", checkbutton_monitor,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (checkbutton_monitor);
+  gtk_box_pack_start (GTK_BOX (vbox3), checkbutton_monitor, FALSE, FALSE, 0);
+
+  label5 = gtk_label_new ("");
+  gtk_widget_set_name (label5, "label5");
+  gtk_widget_ref (label5);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label5", label5,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (label5);
+  gtk_box_pack_start (GTK_BOX (vbox3), label5, FALSE, FALSE, 0);
+
+  label6 = gtk_label_new ("");
+  gtk_widget_set_name (label6, "label6");
+  gtk_widget_ref (label6);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "label6", label6,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (label6);
+  gtk_box_pack_start (GTK_BOX (vbox3), label6, FALSE, FALSE, 0);
+
+  page_monitor = gtk_label_new (_("Monitor"));
+  gtk_widget_set_name (page_monitor, "page_monitor");
+  gtk_widget_ref (page_monitor);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "page_monitor", page_monitor,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (page_monitor);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 2), page_monitor);
+
+  dialog_action_area1 = GTK_DIALOG (volnorm)->action_area;
   gtk_widget_set_name (dialog_action_area1, "dialog_action_area1");
-  gtk_object_set_data (GTK_OBJECT (dialog_configuration), "dialog_action_area1", dialog_action_area1);
+  gtk_object_set_data (GTK_OBJECT (volnorm), "dialog_action_area1", dialog_action_area1);
   gtk_widget_show (dialog_action_area1);
   gtk_container_set_border_width (GTK_CONTAINER (dialog_action_area1), 10);
-
-  hbuttonbox1 = gtk_hbutton_box_new ();
-  gtk_widget_set_name (hbuttonbox1, "hbuttonbox1");
-  gtk_widget_ref (hbuttonbox1);
-  gtk_object_set_data_full (GTK_OBJECT (dialog_configuration), "hbuttonbox1", hbuttonbox1,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (hbuttonbox1);
-  gtk_box_pack_start (GTK_BOX (dialog_action_area1), hbuttonbox1, TRUE, TRUE, 0);
 
   button_ok = gtk_button_new_with_label (_("OK"));
   gtk_widget_set_name (button_ok, "button_ok");
   gtk_widget_ref (button_ok);
-  gtk_object_set_data_full (GTK_OBJECT (dialog_configuration), "button_ok", button_ok,
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "button_ok", button_ok,
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (button_ok);
-  gtk_container_add (GTK_CONTAINER (hbuttonbox1), button_ok);
-  GTK_WIDGET_SET_FLAGS (button_ok, GTK_CAN_DEFAULT);
-
-  button_cancel = gtk_button_new_with_label (_("Cancel"));
-  gtk_widget_set_name (button_cancel, "button_cancel");
-  gtk_widget_ref (button_cancel);
-  gtk_object_set_data_full (GTK_OBJECT (dialog_configuration), "button_cancel", button_cancel,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (button_cancel);
-  gtk_container_add (GTK_CONTAINER (hbuttonbox1), button_cancel);
-  GTK_WIDGET_SET_FLAGS (button_cancel, GTK_CAN_DEFAULT);
+  gtk_box_pack_start (GTK_BOX (dialog_action_area1), button_ok, TRUE, TRUE, 0);
 
   button_apply = gtk_button_new_with_label (_("Apply"));
   gtk_widget_set_name (button_apply, "button_apply");
   gtk_widget_ref (button_apply);
-  gtk_object_set_data_full (GTK_OBJECT (dialog_configuration), "button_apply", button_apply,
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "button_apply", button_apply,
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (button_apply);
-  gtk_container_add (GTK_CONTAINER (hbuttonbox1), button_apply);
-  GTK_WIDGET_SET_FLAGS (button_apply, GTK_CAN_DEFAULT);
+  gtk_box_pack_start (GTK_BOX (dialog_action_area1), button_apply, TRUE, TRUE, 0);
 
-  gtk_signal_connect (GTK_OBJECT (dialog_configuration), "hide",
+  button_cancel = gtk_button_new_with_label (_("Cancel"));
+  gtk_widget_set_name (button_cancel, "button_cancel");
+  gtk_widget_ref (button_cancel);
+  gtk_object_set_data_full (GTK_OBJECT (volnorm), "button_cancel", button_cancel,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (button_cancel);
+  gtk_box_pack_start (GTK_BOX (dialog_action_area1), button_cancel, TRUE, TRUE, 0);
+
+  gtk_signal_connect (GTK_OBJECT (volnorm), "hide",
                       GTK_SIGNAL_FUNC (gtk_widget_destroy),
                       NULL);
   gtk_signal_connect (GTK_OBJECT (button_ok), "clicked",
                       GTK_SIGNAL_FUNC (on_button_ok_clicked),
-                      &GTK_ADJUSTMENT(adjustment)->value);
-  gtk_signal_connect (GTK_OBJECT (button_cancel), "clicked",
-                      GTK_SIGNAL_FUNC (on_button_cancel_clicked),
                       NULL);
   gtk_signal_connect (GTK_OBJECT (button_apply), "clicked",
                       GTK_SIGNAL_FUNC (on_button_apply_clicked),
-                      &GTK_ADJUSTMENT(adjustment)->value);
+                      NULL);
+  gtk_signal_connect (GTK_OBJECT (button_cancel), "clicked",
+                      GTK_SIGNAL_FUNC (on_button_cancel_clicked),
+                      NULL);
 
-  return dialog_configuration;
+  return volnorm;
 }
 
