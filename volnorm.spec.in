@@ -9,7 +9,7 @@ Packager: Baruch Even <baruch@users.sourceforge.net>
 Source: http://http://download.sourceforge.net/volnorm/volnorm-%{PACKAGE_VERSION}.tar.gz
 BuildRoot: /var/tmp/rpm/volnorm-root
 Prefix: /usr
-Requires: xmms
+Requires: xmms, gtk+ >= 1.2.6, glib >= 1.2.6
 
 %description
 This XMMS plugin changes the volume of played songs to a uniform level such
