@@ -1,0 +1,35 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2000-09-19 13:54+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: src/interface.c:39
+msgid "Normalize Volume Plugin Configurator"
+msgstr ""
+
+#: src/interface.c:57
+msgid "Power level to adjust for"
+msgstr ""
+
+#: src/interface.c:89
+msgid "OK"
+msgstr ""
+
+#: src/interface.c:98
+msgid "Cancel"
+msgstr ""
+
+#: src/interface.c:107
+msgid "Apply"
+msgstr ""
