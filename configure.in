@@ -25,8 +25,13 @@ if test "x$XMMS_PATH" = "xno"; then
 	exit 1
 fi
 
+AC_ARG_WITH(plugindir, 
+[  --with-plugindir=DIR    use this for plugin dir ],
+				plugindir=$withval,
+                plugindir=`xmms-config --plugin-dir`)
+
 AC_MSG_CHECKING(XMMS plugin dir)
-plugindir=`xmms-config --plugin-dir`
+#plugindir=`xmms-config --plugin-dir`
 AC_SUBST(plugindir)
 AC_MSG_RESULT($plugindir)
 

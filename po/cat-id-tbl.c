@@ -23,6 +23,8 @@ const struct _msg_ent _msg_tbl[] = {
   {"Apply", 14},
   {"Cancel", 15},
   {"Volume Normalizing plugin Monitor", 16},
+  {"Couldn't find pixmap file: %s", 17},
+  {"Error loading pixmap file: %s", 18},
 };
 
-int _msg_tbl_length = 16;
+int _msg_tbl_length = 18;
