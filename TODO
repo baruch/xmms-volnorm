@@ -1,12 +1,10 @@
 1. Stuff that was implemented and needs testing:
 
-Change nothing until the queue is filled, this will reduce the song
-start noise.
-
 The user should set a minimum power to adjust, below it we change
 nothing and consider it as silence.
 The user should set a maximum multiplier.
-(Needs to add this to the UI, currently it can be changed in compile time only)
+(Needs to add this to the UI, currently it can be changed in compile time 
+or manually in the config file)
 
 2. Stuff that needs doing:
 
