@@ -14,3 +14,6 @@ COMMON_SRC = normvol.c normvol.h smooth.c smooth.h cfg.c cfg.h \
 
 CFLAGS = $(COMMON_CFLAGS)
 libnormvol_la_SOURCES =  $(COMMON_SRC)
+
+support.c support.h interface.c interface.h: volnorm.glade
+	glade -w volnorm.glade
