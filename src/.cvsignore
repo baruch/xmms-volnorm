@@ -1,6 +1,7 @@
 config.h
 Makefile.in
-src/.deps
-src/*.lo
-src/.libs
-src/*.la
+Makefile
+.deps
+*.lo
+.libs
+*.la
