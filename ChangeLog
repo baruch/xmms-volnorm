@@ -1,3 +1,8 @@
+2000-09-15  Baruch Even  <baruch.even@writeme.com>
+
+	* src/cfg.c: Added the variables max_mult and silence_level that I forgot
+	about. Thanks to Jim Smith.
+
 2000-09-14  Baruch Even  <baruch.even@writeme.com>
 
 	* src/cfg.h:

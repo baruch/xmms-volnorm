@@ -10,6 +10,8 @@
 #define DEFAULT_MAX_MULT 15
 
 double normalize_level = DEFAULT_LEVEL;
+double silence_level = DEFAULT_SILENCE;
+double max_level = DEFAULT_MAX_LEVEL;
 
 void read_config(void)
 {
