@@ -3,3 +3,10 @@ A report from Vincenzo Gervasi <gervasi@margot.di.unipi.it>:
 often produces several sudden increases of the volume level in a row,
 with... ehm... interesting effects on the nerves of my office mates. You
 should probably test it on a machine with sound hardware."
+
+both xmms + plugin GTK configuration window freeze, when I try configure 
+plugin.
+I use xmms 1.2.2 (debian package), plugin version 0.3.4 and ESD daemon instead
+of direct access to /dev/dsp.
+	
+The directories glade and config are not part of the distribution.
