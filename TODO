@@ -24,7 +24,7 @@ Allow the user to set the size of the queue.
 
 Need to keep tab of the multiplier so that clipping will not occur.
 
-From: Deven T. Corzine <deven@ties.org>
+From: Deven T. Corzine
 Actually, I was having a problem where it would take a long time to change,
 then leap to a new volume.  I'm trying to use this to keep music audible
 while keeping it from getting too loud at work.  Is there any way to have
@@ -32,5 +32,14 @@ it cut the volume *fast* if it's getting over a limit (ignoring a few short
 spikes, maybe), and only raise it slowly, but soon?  For example, check
 once per second or three, and raise in small increments...
 
+From: Radim Kolar
+An additional request with a similar though is to change the volume gradually
+when going in the two directions in order to avoid "disturbing effects".
+
 Add tests to the test driver, currently it only tests that the plugin is 
 loadable, if it's not loadable linking the test driver will fail.
+
+Add some visual feedback to know what it does right now (mini-monitor).
+
+Fix the configure.in stuff, the plugin dir detection is hosed, it doesn't use
+the various plugin dir flags...
