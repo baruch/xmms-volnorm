@@ -1,6 +1,6 @@
 1. Stuff that was implemented and needs testing:
 
-Change nothing until the queue is filled, this will avoid the song
+Change nothing until the queue is filled, this will reduce the song
 start noise.
 
 2. Stuff that needs doing:

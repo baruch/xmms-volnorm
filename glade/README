@@ -1,0 +1,2 @@
+This is used as a scratch dir to create the dialog for the plugin. This is done
+using glade, which then generates the needed source files.
