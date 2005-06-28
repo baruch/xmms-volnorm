@@ -62,12 +62,6 @@ dnl if test $ac_cv_header_stdc = yes; then
 dnl	AC_DEFINE(__STDC__)
 dnl fi
 
-dnl Other stuff
-AC_MSG_CHECKING(machine architecture)
-AC_SUBST(ARCH_TYPE)
-ARCH_TYPE=`uname -m`
-AC_MSG_RESULT($ARCH_TYPE)
-
 AC_OUTPUT(
 Makefile
 src/Makefile
