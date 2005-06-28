@@ -62,29 +62,27 @@ void SmoothAddSample(smooth_t * sm, double sample)
 
 double SmoothGetMax(smooth_t * sm)
 {
+	int i = 0;
+	double smoothed = 0.0;
+	
 	if (sm == NULL)
 		return -1.0;
 
 	/* Calculate the smoothed value */
-	{
-		int i = 0;
-		double smoothed = 0.0;
+	for (i = 0; i < sm->used; ++i)
+		smoothed += sm->data[i];
+	smoothed = smoothed / sm->used;
 
-		for (i = 0; i < sm->used; ++i)
-			smoothed += sm->data[i];
-		smoothed = smoothed / sm->used;
-	
-		/* If we haven't filled the smoothing buffer, 
-		 * dont save the max value. 
-		 */
-		if (sm->used < sm->size) {
-			/* Average (weighted appropriately) the smoothed with normalize level for the unknown */
-			return (smoothed*sm->used + normalize_level*(sm->size - sm->used)) / sm->size;
-		}
-
-		if (sm->max < smoothed)
-			sm->max = smoothed;
+	/* If we haven't filled the smoothing buffer, 
+	 * dont save the max value. 
+	 */
+	if (sm->used < sm->size) {
+		/* Average (weighted appropriately) the smoothed with normalize level for the unknown */
+		return (smoothed*sm->used + normalize_level*(sm->size - sm->used)) / sm->size;
 	}
+
+	if (sm->max < smoothed)
+		sm->max = smoothed;
 
 	return sm->max;
 }
