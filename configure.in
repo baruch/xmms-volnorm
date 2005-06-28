@@ -45,6 +45,11 @@ if test ! -d "$libdir"; then
   fi
 fi 
 
+if test "$libdir" == ""; then
+	echo "XMMS plugin directory not found, are XMMS development files installed?"
+	exit 1
+fi
+
 dnl Checks for libraries.
 AM_PATH_GLIB(1.2.6,,AC_MSG_ERROR([*** GLIB >= 1.2.6 not installed - please install first ***]))
 AM_PATH_GTK(1.2.6,,AC_MSG_ERROR([*** GTK+ >= 1.2.6 not installed - please install first ***]),gthread)
@@ -62,8 +67,6 @@ AC_MSG_CHECKING(machine architecture)
 AC_SUBST(ARCH_TYPE)
 ARCH_TYPE=`uname -m`
 AC_MSG_RESULT($ARCH_TYPE)
-
-AM_CONDITIONAL(ARCH_X86,test "$ARCH_TYPE" = "i386" || test "$ARCH_TYPE" = "i486" || test "$ARCH_TYPE" = "i586" || test "$ARCH_TYPE" = "i686" || test "$ARCH_TYPE" = "i86pc")
 
 AC_OUTPUT(
 Makefile
