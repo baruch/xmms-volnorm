@@ -57,26 +57,24 @@ EffectPlugin *get_eplugin_info(void)
 	return &normvol_ep;
 }
 
-static void restart_smoothing(void) {
+static void restart_smoothing(void)
+{
 	gint channel = 0;
 
 	for (channel = 0; channel < MAX_CHANNELS; ++channel) {
-		if (smooth[channel] != NULL)
-			SmoothDelete(smooth[channel]);
-
+		SmoothDelete(smooth[channel]);
 		smooth[channel] = SmoothNew(SMOOTH_SAMPLES);
 	}
 }
 
-static gint song_changed(void) {
+static gint song_changed(void)
+{
 	/* These vars are used to detect a song change */
 	static gint last_song = -1;
 	static gint last_length = -1;
 
-	gint song = -1;
-	gint length = -1;
-
-	gint result = FALSE;
+	gint song;
+	gint length;
 
 	/* Get the current song played and its total playing time */
 	song = xmms_remote_get_playlist_pos(0);
@@ -90,27 +88,24 @@ static gint song_changed(void) {
 	if (length != last_length) {
 		last_song = song;
 		last_length = length;
+		return TRUE;
+	}
 
-		result = TRUE;
-	} 
-
-	return result;
+	return FALSE;
 }
 
-static void normvol_init(void) {
+static void normvol_init(void)
+{
 	read_config();
 
 	/* Initialize the smoothing filter, set it to SMOOTH_SAMPLES samples */
-	{
-		gint channel = 0;
-		for (channel = 0; channel < MAX_CHANNELS; ++channel)
-			smooth[channel] = NULL;
-		restart_smoothing();
-	}
+	memset(&smooth, 0, sizeof(smooth));
+	restart_smoothing();
 }
 
-static void normvol_cleanup(void) {
-	gint channel = 0;
+static void normvol_cleanup(void)
+{
+	gint channel;
 
 	for (channel = 0; channel < MAX_CHANNELS; ++channel)
 		SmoothDelete(smooth[channel]);
@@ -134,8 +129,7 @@ static void normvol_configure(void)
 static int normvol_mod_samples(gpointer* d, gint length, AFormat afmt, gint srate, gint nch)
 {
 	double level = -1.0;
-	gint to_avoid_warning = srate;
-	srate = to_avoid_warning;
+	srate = 0;
 
 	/* Check only the last one, if it is allocated, most probably the others are
 	 * too.
@@ -147,7 +141,9 @@ static int normvol_mod_samples(gpointer* d, gint length, AFormat afmt, gint srat
 	if (!(afmt == FMT_S16_NE ||
 	      (afmt == FMT_S16_LE && G_BYTE_ORDER == G_LITTLE_ENDIAN) ||
 	      (afmt == FMT_S16_BE && G_BYTE_ORDER == G_BIG_ENDIAN)))
+	{
 		return length;
+	}
 
 	/* If there are too many channels do nothing. */
 	if (nch > MAX_CHANNELS)
@@ -192,8 +188,10 @@ static int normvol_mod_samples(gpointer* d, gint length, AFormat afmt, gint srat
 
 		/* Adjust the gain with the smoothed value */
 		adjust_gain(d, length, gain);
-		
-		/* printf("Max level is %f, Gain is %f\n", level, gain); */
+	
+#ifdef PRINT_MONITOR
+		printf("Max level is %f, Gain is %f\n", level, gain);
+#endif
 	}
 
 #ifdef PRINT_MONITOR
@@ -213,34 +211,28 @@ static void calc_power_level(gpointer* d, gint length, gint nch)
 
 #ifdef DEBUG
 	static int counter = 0;
+	if ((double)*data > cutoff || counter++ == 250)  {
+		printf("do_compress = %d, cutoff = %g, degree = %g, sample = %d\n",
+				do_compress, cutoff, degree, *data);
+		counter = 0;
+	}
 #endif
 
 	/* Zero the channel sum values */
-	for (channel = 0; channel < nch; ++channel) {
+	for (channel = 0; channel < nch; ++channel)
 		sum[channel] = 0.0;
-	}
 
 	/* Calculate the square sums for all channels at once 
 	 * This will be do better memory access
 	 */
 
-#ifdef DEBUG
-	if ((double)*data > cutoff || counter == 250)  {
-	printf("do_compress = %d, cutoff = %g, degree = %g, sample = %d\n",
-			do_compress, cutoff, degree, *data);
-		counter = 0;
-	}
-	++counter;
-#endif
-	
 	/* length is in bytes we use shorts */
 	for (i = 0, channel = 0; i < length/2; ++i, ++data) {
 		double sample = *data;
 		double temp = 0.0;
 
-		if (do_compress)
-			if (sample > cutoff)
-				sample = cutoff + (sample-cutoff)/degree;
+		if (do_compress && sample > cutoff)
+			sample = cutoff + (sample-cutoff)/degree;
 	
 		/* Calculate sample^2 and 
 		   Adjust the level to be between 0.0 -- 1.0 */
@@ -284,15 +276,18 @@ static void adjust_gain(gpointer * d, gint length, double gain)
 		/* Convert sample to double */
 		double sample = (double)*data;
 		
-		if (do_compress)
-			if (sample > cutoff)
-				sample = cutoff + (sample-cutoff)/degree;
-	
+		if (do_compress && sample > cutoff)
+			sample = cutoff + (sample-cutoff)/degree;
 
 		/* Multiply by gain */
 		sample *= gain;
 
 		/* Make sure it's within bounds and cast to gint16 */
-		*data = (gint16) CLAMP(sample, G_MINSHORT, G_MAXSHORT);
+		if (sample < G_MINSHORT)
+			*data = G_MINSHORT;
+		else if (sample > G_MAXSHORT)
+			*data = G_MAXSHORT;
+		else
+			*data = (gint16)sample;
 	}
 }
