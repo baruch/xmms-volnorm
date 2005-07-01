@@ -1,12 +1,3 @@
-1. Stuff that was implemented and needs testing:
-
-None
-
-2. Stuff that needs doing:
-
-Create a monitor that will display the current power, gain and such, possibly
-also show song change time and ability to dump the data to a file.
-
 Make sure that the sample size is small enough, not larger than 1/100 of a 
 second worth of data.
 
@@ -38,8 +29,6 @@ when going in the two directions in order to avoid "disturbing effects".
 
 Add tests to the test driver, currently it only tests that the plugin is 
 loadable, if it's not loadable linking the test driver will fail.
-
-Add some visual feedback to know what it does right now (mini-monitor).
 
 Fix the configure.in stuff, the plugin dir detection is hosed, it doesn't use
 the various plugin dir flags...
